@@ -1165,31 +1165,57 @@ function argument, or return statement. For example:</p>
 
 </div> 
 
-<h3 id="Copyable_Movable_Types">Copyable and Movable Types</h3>
+<h3 id="Copyable_Movable_Types">コピー可能とムーブ可能な型</h3>
 <a id="Copy_Constructors"></a>
 <div class="summary">
+<!--
 <p>Support copying and/or moving if it makes sense for your type.
 Otherwise, disable the implicitly generated special
 functions that perform copies and moves.</p>
 </div>
+-->
+<p>コピーやムーブがあなたの型にとって意味があるならサポートしてください。
+そうでないのなら、暗黙的に生成される特別な
+コピーやムーブを実行する関数を無効化してください。</p>
 
 <div class="stylebody">
 
 <div class="definition">
+<!--
 <p>A copyable type allows its objects to be initialized or assigned
 from any other object of the same type, without changing the value of the source.
 For user-defined types, the copy behavior is defined by the copy
 constructor and the copy-assignment operator.
 <code>string</code> is an example of a copyable type.</p>
+-->
+<p>コピー可能な型は、オブジェクト自身が、コピー元の値を変更することなく、
+同じ型をもつ他のどのオブジェクトからでも初期化や代入されることを許可します。
+ユーザ定義型に対しては、コピーの振る舞いはコピーコンストラクタと
+コピー代入演算子で定義されます。
+<code>string</code>はコピー可能な型の例です。</p>
 
+<!--
 <p>A movable type is one that can be initialized and assigned
 from temporaries (all copyable types are therefore movable).
 <code>std::unique_ptr&lt;int&gt;</code> is an example of a movable but not
 copyable type. For user-defined types, the move behavior is defined by the move
 constructor and the move-assignment operator.</p>
+-->
+<p>ムーブ可能な型は、一時オブジェクトからの初期化や代入が可能です。
+(したがって、すべてのコピー可能な型はムーブ可能です)。
+<code>std::unique_ptr&lt;int&gt;</code>はムーブ可能ですが、
+コピー可能でない型の例です。
+ユーザ定義型に対しては、ムーブの振る舞いはムーブコンストラクタと
+ムーブ代入演算子で定義されます。
+</p>
 
+<!--
 <p>The copy/move constructors can be implicitly invoked by the compiler
 in some situations, e.g. when passing objects by value.</p>
+-->
+<p>コピー/ムーブコンストラクタは、
+ある状況ではコンパイラによって暗黙的に実行されます。
+例えば、オブジェクトを値渡しするときです。</p>
 </div>
 
 <div class="pros">
