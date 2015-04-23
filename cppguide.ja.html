@@ -34,7 +34,7 @@ code more bug-prone and harder to read and maintain.</p>
 <p>C++はGoogleのオープンソースプロジェクトの多くで使われている主な開発言語です。
 C++プログラマのみなさんが知っているとおり、C++は多くの強力な機能を持っていますが、
 その力は複雑さを伴います。それによって、コードをバグがより発生しやすく、
-読みにくくメンテナンスしにくくすることもできます。</p>
+読みにくく保守しにくくすることもできます。</p>
 
 <!--
 <p>The goal of this guide is to manage this complexity by
@@ -1219,6 +1219,7 @@ in some situations, e.g. when passing objects by value.</p>
 </div>
 
 <div class="pros">
+<!--
 <p>Objects of copyable and movable types can be passed and returned
 by value, which makes APIs simpler, safer, and more general.
 Unlike when passing pointers or references, there's no risk of
@@ -1228,7 +1229,19 @@ prevents non-local interactions between the client and the
 implementation, which makes them easier to understand and
 maintain. Such objects can be used with generic
 APIs that require pass-by-value, such as most containers.</p>
+-->
+<p>コピー可能でムーブ可能な型のオブジェクトは、
+値で渡したり戻すことができます。これによって、
+APIは、より簡潔に、より安全に、より汎用的になります。
+ポインタや参照で渡したときとは違って、
+所有権、生存期間、可変性や類似する問題で混乱するリスクはなく、
+それらを契約として記述する必要もありません。
+さらに、クライアントと実装の間での非局所的な相互作用を防ぎ、
+それらを理解し保守することを簡単にします。
+そのようなオブジェクトは、多くのコンテナのように、
+値渡しを要求する汎用的なAPIとして使われます。</p>
 
+<!--
 <p>Copy/move constructors and assignment operators are usually
 easier to define correctly than alternatives
 like <code>Clone()</code>, <code>CopyFrom()</code> or <code>Swap()</code>,
@@ -1241,10 +1254,27 @@ steps, and they're eligible for optimizations such as
 
 <a href="http://en.cppreference.com/w/cpp/language/copy_elision">
 copy elision</a>.</p>
+-->
+<p>コピー/ムーブコンストラクタとコピー/ムーブ代入演算子は、一般に、
+<code>Clone()</code>、<code>CopyFrom()</code>、<code>Swap()</code>
+のような選択肢に比べて、正しく定義することが簡単です。
+なぜなら、暗黙的に、もしくは、<code>= default</code>
+をともなういずれかとき、コンパイラによって生成されるからです。
+生成されたものは簡潔で、すべてのメンバ変数がコピーされることを保証します。
+コピーとムーブコンストラクタは、一般的に、効率的でもあります。
+なぜなら、ヒープ割当を要求しない、もしくは、
+初期化と代入のステップを分離しないため、
+<a href="http://ja.cppreference.com/w/cpp/language/copy_elision">コピーの省略
+</a>のような最適化にとって望ましいからです。</p>
 
+<!--
 <p>Move operations allow the implicit and efficient transfer of
 resources out of rvalue objects. This allows a plainer coding style
 in some cases.</p>
+-->
+<p>ムーブ操作は、
+右辺値オブジェクトからのリソース移動を暗黙的に効率化できます。
+これはいくつかのケースではわかりやすいコーディングスタイルになります。</p>
 </div>
 
 <div class="cons">
