@@ -219,42 +219,42 @@ address {
 }
 
 .definition:before {
-  content: "Definition: ";
+  content: "定義: ";
   font-weight: bold;
   display: block;
   margin-bottom: 1em;
 }
 
 .pros:before {
-  content: "Pros: ";
+  content: "利点: ";
   font-weight: bold;
   display: block;
   margin-bottom: 1em;
 }
 
 .cons:before {
-  content: "Cons: ";
+  content: "欠点: ";
   font-weight: bold;
   display: block;
   margin-bottom: 1em;
 }
 
 .decision:before {
-  content: "Decision: ";
+  content: "結論: ";
   font-weight: bold;
   display: block;
   margin-bottom: 1em;
 }
 
 .exception:before {
-  content: "Exception: ";
+  content: "例外: ";
   font-weight: bold;
   display: block;
   margin-bottom: 1em;
 }
 
 .note:before {
-  content: "Note: ";
+  content: "注記: ";
   font-weight: bold;
   display: block;
   margin-bottom: 1em;
