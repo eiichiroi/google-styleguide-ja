@@ -1278,6 +1278,7 @@ in some cases.</p>
 </div>
 
 <div class="cons">
+<!--
 <p>Many types do not need to be copyable, and providing copy
 operations for them can be confusing, nonsensical, or outright
 incorrect. Copy/assigment operations for base class types are
@@ -1286,13 +1287,27 @@ hazardous, because use of them can lead to
 slicing</a>. Defaulted or carelessly-implemented copy operations
 can be incorrect, and the resulting bugs can be confusing and
 difficult to diagnose.</p>
+-->
+<p>多くの型はコピー可能である必要はなく、コピー操作を提供することは、
+混乱しやすい、本質でない、あるいは、完全に間違っているかもしれません。
+基底クラスに対するコピー/代入操作は危険です。なぜなら、それらを使うと
+<a href="http://en.wikipedia.org/wiki/Object_slicing">オブジェクトのスライシング
+</a>につながります。デフォルトで生成された、もしくは、
+注意深く実装されたコピー操作が間違っていると、
+結果として生じたバグは混乱しやすく原因究明が難しいかもしれません。</p>
 
+<!--
 <p>Copy constructors are invoked implicitly, which makes the
 invocation easy to miss. This may cause confusion, particularly
 for programmers used to languages where pass-by-reference is
 conventional or mandatory. It may also encourage excessive
 copying, which can cause performance problems.</p>
-
+-->
+<p>コピーコンストラクタが暗黙的に呼び出されることは、
+コピーコンストラクタの呼び出しを間違えやすくなります。これは、
+特に参照渡しが規約か必須の言語をよく使っていたプログラマにとっては、
+混乱をまねくかもしれません。また、それは余計なコピーを助長して、
+性能問題を引き起こすかもしれません。</p>
 
 </div>
 
