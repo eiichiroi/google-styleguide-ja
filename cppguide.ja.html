@@ -115,54 +115,108 @@ the reader is familiar with the language. </p>
 C++に親しんでいる読者を想定しています。</p>
 
 
-<h2 id="Header_Files">Header Files</h2>
+<h2 id="Header_Files">ヘッダファイル</h2>
 
+<!--
 <p>In general, every <code>.cc</code> file should have an
 associated <code>.h</code> file. There are some common
 exceptions, such as  unittests and
 small <code>.cc</code> files containing just a
 <code>main()</code> function.</p>
+-->
+<p>一般的に、
+各<code>.cc</code>ファイルは対応する<code>.h</code>ファイルをもつべきです。
+単体テストや
+<code>main()</code>関数だけを含む小さな<code>.cc</code>ファイルのような、
+いくつかの共通する例外は除きます。
+</p>
 
+<!--
 <p>Correct use of header files can make a huge difference to
 the readability, size and performance of your code.</p>
+-->
+<p>ヘッダファイルを正しく使うことで、
+コードの可読性、サイズや性能を大きく変えることができます。</p>
 
+<!--
 <p>The following rules will guide you through the various
 pitfalls of using header files.</p>
+-->
+<p>以下のルールは、
+ヘッダファイルを使う上での様々な落とし穴を避けるためのガイドです。</p>
 
 <a id="The_-inl.h_Files"></a>
-<h3 id="Self_contained_Headers">Self-contained Headers</h3>
+<h3 id="Self_contained_Headers">自己完結するヘッダ</h3>
 
 <div class="summary">
+<!--
 <p>Header files should be self-contained and end in <code>.h</code>. Files that
 are meant for textual inclusion, but are not headers, should end in
 <code>.inc</code>. Separate <code>-inl.h</code> headers are disallowed.</p>
+-->
+<p>ヘッダーファイルは自己完結しているべきであり、<code>.h</code>で終わるべきです。
+文字列の取り込みを意図したファイルは、ヘッダではありませんが、
+<code>.inc</code>で終わるべきです。
+<code>-inl.h</code>ヘッダに分離することは禁止されています。</p>
 </div> 
 
 <div class="stylebody">
+<!--
 <p>All header files should be self-contained. In other
 words, users and refactoring tools should not have to adhere to special
 conditions in order to include the header. Specifically, a
 header should have <a href="#The__define_Guard">header guards</a>,
 should include all other headers it needs, and should not require any
 particular symbols to be defined.</p>
+-->
+<p>すべてのヘッダファイルは自己完結しているべきです。言い換えると、
+ユーザとリファクタリングツールはヘッダを含めるために
+特別な条件をつけるべきではありません。特に、
+ヘッダは<a href="#The__define_Guard">ヘッダガード</a>をもつべきであり、
+それが必要とするその他すべてのヘッダを含むべきであり、
+これといったシンボルの定義を要求するべきではありません。</p>
 
+<!--
 <p>There are rare cases where a file is not meant to be self-contained, but
 instead is meant to be textually included at a specific point in the code.
 Examples are files that need to be included multiple times or
 platform-specific extensions that essentially are part of other headers. Such
 files should use the file extension <code>.inc</code>.</p>
+-->
+<p>あるファイルが自己完結しておらず、その代わりに、
+コード中のある特定箇所で文字列として取り込まれることになっているという
+特殊なケースがあります。例としては、複数回含める必要があるファイルや、
+本質的に他のヘッダの一部であるプラットフォーム固有の拡張です。
+そのようなファイルはファイル拡張子<code>.inc</code>を使うべきです。
+</p>
 
+<!--
 <p>If a template or inline function is declared in a <code>.h</code> file,
 define it in that same file. The definitions of these constructs must
 be included into every <code>.cc</code> file that uses them, or the
 program may fail to link in some build configurations. Do not move these
 definitions to separate <code>-inl.h</code> files.</p>
+-->
+<p>もしテンプレートやインライン関数が
+<code>.h</code>ファイルの中で宣言されているのであれば、
+同じファイルの中で定義してください。それらを構成する定義は
+それらを使う各々の<code>.cc</code>ファイルに含めなけれいけません。
+さもなければ、
+いくつかのビルド環境設定ではそのプログラムはリンクに失敗するかもしれません。
+<code>-inl.h</code>ファイルに分離するためにこれらの定義を移動してはいけません。
+</p>
 
+<!--
 <p>As an exception, a function template that is explicitly
 instantiated for all relevant sets of template arguments, or
 that is a private member of a class, may
 be defined in the only <code>.cc</code> file that
 instantiates the template.</p>
+-->
+<p>例外として、
+関連するテンプレート引数すべてに対して特殊化された関数テンプレートや、
+あるクラスのプライベートメンバである関数テンプレートは、テンプレートを特殊化する
+<code>.cc</code>ファイルの中でのみ定義されるかもしれない。</p>
 
 </div> 
 
