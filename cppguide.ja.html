@@ -433,29 +433,44 @@ of Includes</a> for rules about when to #include a header.</p>
 
 </div> 
 
-<h3 id="Inline_Functions">Inline Functions</h3>
+<h3 id="Inline_Functions">インライン関数</h3>
 
 <div class="summary">
+<!--
 <p>Define functions inline only when they are small, say, 10
 lines or less.</p>
+-->
+<p>10行以下の小さいときだけ関数をインラインとして定義してください。</p>
 </div>
 
 <div class="stylebody">
 
 <div class="definition">
+<!--
 <p>You can declare functions in a way that allows the compiler to expand
 them inline rather than calling them through the usual
 function call mechanism.</p>
+-->
+<p>通常の関数呼び出し規約を通じて呼び出すより、
+  インラインに展開することをコンパイラに許可する
+  関数の宣言方法があります。</p>
 </div>
 
 <div class="pros">
+<!--
 <p>Inlining a function can generate more efficient object
 code, as long as the inlined function is small. Feel free
 to inline accessors and mutators, and other short,
 performance-critical functions.</p>
+-->
+<p>インライン化された関数が小さければ、
+  関数のインライン化はオブジェクトコードをより効率的に生成します。
+  アクセッサやミューテータ(読込みメソッドや書込みメソッド)、
+  短くて性能が重要な関数などで、気軽にインライン化してください。</p>
 </div>
 
 <div class="cons">
+<!--
 <p>Overuse of inlining can actually make programs slower.
 Depending on a function's size, inlining it can cause the
 code size to increase or decrease. Inlining a very small
@@ -464,18 +479,39 @@ inlining a very large function can dramatically increase
 code size. On modern processors smaller code usually runs
 faster due to better use of the instruction cache.</p>
 </div>
+-->
+<p>インライン化の濫用は実際にはプログラムを遅くします。
+関数のサイズにも依存しますが、
+インライン化はコードサイズの増減を引き起こすかもしれません。
+とても大きい関数のインライン化はコードサイズを劇的に増やす一方で、
+とても小さなアクセッサ関数のインライン化はコードサイズを減らすでしょう。
+最近のプロセッサでは、命令キャッシュをよりよく使うため、
+短いコードほど速く実行します。
+</p>
 
 <div class="decision">
+<!--
 <p>A decent rule of thumb is to not inline a function if
 it is more than 10 lines long. Beware of destructors,
 which are often longer than they appear because of
 implicit member- and base-destructor calls!</p>
+-->
+<p>ちゃんとした経験則は、10行より長い関数はインライン化しないことです。
+デストラクタの注意点としては、
+暗黙的なメンバであることと基底クラスのデストラクタ呼び出しのため、
+見た目より長くなることです。</p>
 
+<!--
 <p>Another useful rule of thumb: it's typically not cost
 effective to inline functions with loops or switch
 statements (unless, in the common case, the loop or
 switch statement is never executed).</p>
+-->
+<p>その他に役に立つ経験則としては、
+ループやswitch文を含む関数のインライン化は費用対効果が良くありません。
+(ほとんどのときにループやswitch文実行されない場合を除きます。)</p>
 
+<!--
 <p>It is important to know that functions are not always
 inlined even if they are declared as such; for example,
 virtual and recursive functions are not normally inlined.
@@ -484,6 +520,15 @@ main reason for making a virtual function inline is to
 place its definition in the class, either for convenience
 or to document its behavior, e.g., for accessors and
 mutators.</p>
+-->
+<p>関数がインラインとして宣言されていたとしても、
+必ずしもインライン化されないことを知っておくことは重要です。
+例えば、仮想関数や再帰関数は通常インライン化されません。
+一風変わっている再帰関数はインラインであってはなりません。
+仮想関数をインラインにする主な理由は、
+クラスの中に定義を置くことか、利便性のためか、
+振る舞いを文書化するためです。
+その例は、アクセッサとミューテータ(読込みメソッドや書込みメソッド)です。</p>
 </div> 
 
 </div> 
