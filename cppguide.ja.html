@@ -533,14 +533,18 @@ mutators.</p>
 
 </div> 
 
-<h3 id="Function_Parameter_Ordering">Function Parameter Ordering</h3>
+<h3 id="Function_Parameter_Ordering">関数の引数の順序</h3>
 
 <div class="summary">
+<!--
 <p>When defining a function, parameter order is: inputs, then
 outputs.</p>
+-->
+<p>関数を定義するときの引数の順序は、入力、それから出力です。</p>
 </div>
 
 <div class="stylebody">
+<!--
 <p>Parameters to C/C++ functions are either input to the
 function, output from the function, or both. Input
 parameters are usually values or <code>const</code>
@@ -551,11 +555,24 @@ any output parameters. In particular, do not add new
 parameters to the end of the function just because they
 are new; place new input-only parameters before the
 output parameters.</p>
+-->
+<p>C/C++の関数の引数は、
+関数への入力か関数からの出力のどちらかか、あるいは両方です。
+出力と入出力引数が<code>const</code>でないポインタである一方で、
+入力引数は通常、値か<code>const</code>参照です。
+関数の引数を並べるとき、すべての入力のみの引数を出力引数の前に置きます。
+特に、新しいからというだけで関数の終わりに新しい引数を追加してはいけません。
+その代わりに、新しい入力のみの引数は出力引数の前に置いてください。</p>
 
+<!--
 <p>This is not a hard-and-fast rule. Parameters that are
 both input and output (often classes/structs) muddy the
 waters, and, as always, consistency with related
 functions may require you to bend the rule.</p>
+-->
+<p>これは杓子定規ではありません。水が濁ってしまうのと同様に、
+(多くの場合クラスや構造体の)入力と出力の両方である引数が、
+関連する関数との一貫性のためにルールをねじ曲げることを求めるかもしれません。</p>
 
 </div> 
 
