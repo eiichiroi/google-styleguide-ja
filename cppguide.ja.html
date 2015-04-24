@@ -215,29 +215,40 @@ instantiates the template.</p>
 -->
 <p>例外として、
 関連するテンプレート引数すべてに対して特殊化された関数テンプレートや、
-あるクラスのプライベートメンバである関数テンプレートは、テンプレートを特殊化する
-<code>.cc</code>ファイルの中でのみ定義されるかもしれない。</p>
+あるクラスのプライベートメンバである関数テンプレートは、
+テンプレートを特殊化する
+<code>.cc</code>ファイルの中でのみ定義されるかもしれません。</p>
 
 </div> 
 
-<h3 id="The__define_Guard">The #define Guard</h3>
+<h3 id="The__define_Guard">#defineガード</h3>
 
 <div class="summary">
+<!--
 <p>All header files should have <code>#define</code> guards to
 prevent multiple inclusion. The format of the symbol name
 should be
 <code><i>&lt;PROJECT&gt;</i>_<i>&lt;PATH&gt;</i>_<i>&lt;FILE&gt;</i>_H_</code>.</p>
+-->
+<p>すべてのヘッダファイルは複数回の取り込みを防ぐために
+<code>#define</code>ガードをもつべきです。そのシンボル名のフォーマットは、
+<code><i>&lt;PROJECT&gt;</i>_<i>&lt;PATH&gt;</i>_<i>&lt;FILE&gt;</i>_H_</code>であるべきです。</p>
 </div> 
 
 <div class="stylebody">
 
 
-
+<!--
 <p>To guarantee uniqueness, they should
 be based on the full path in a project's source tree. For
 example, the file <code>foo/src/bar/baz.h</code> in
 project <code>foo</code> should have the following
 guard:</p>
+-->
+<p>一意性を保証するために、
+プロジェクトのソースツリー中のフルパスに基づくべきです。例えば、
+プロジェクト<code>foo</code>の中にあるファイル<code>foo/src/bar/baz.h</code>
+は以下のガードをもつべきです。</p>
 
 <pre>#ifndef FOO_BAR_BAZ_H_
 #define FOO_BAR_BAZ_H_
@@ -252,24 +263,35 @@ guard:</p>
 
 </div> 
 
-<h3 id="Forward_Declarations">Forward Declarations</h3>
+<h3 id="Forward_Declarations">前方宣言</h3>
 
 <div class="summary">
+<!--
 <p>You may forward declare ordinary classes in order to avoid
 unnecessary <code>#include</code>s.</p>
+-->
+<p>不要な<code>#include</code>を回避するために、
+普通のクラスを前方宣言しても構いません。</p>
 </div>
 
 <div class="stylebody">
 
 <div class="definition">
+<!--
 <p>A "forward declaration" is a declaration of a class,
 function, or template without an associated definition.
 <code>#include</code> lines can often be replaced with
 forward declarations of whatever symbols are actually
 used by the client code.</p>
+-->
+<p>前方宣言とは、対応する定義をもたないクラス、関数、テンプレートの宣言です。
+<code>#include</code>行は、
+クライアントコードに実際に使われるどんなシンボルの前方宣言とともに
+しばしば置き換えられます。</p>
 </div>
 
 <div class="pros">
+<!--
 <ul>
   <li>Unnecessary <code>#include</code>s force the
   compiler to open more files and process more
@@ -278,15 +300,32 @@ used by the client code.</p>
   <li>They can also force your code to be recompiled more
   often, due to changes in the header.</li>
 </ul>
+-->
+<ul>
+  <li>不要な<code>#include</code>は、
+    たくさんのファイルを開いてより多くの入力を処理することを
+    コンパイラに強制します。</li>
+
+  <li>ヘッダー中の変更によって、
+    もっと頻繁にコードが再コンパイルされることが強いられます。</li>
+</ul>
+
 </div>
 
 <div class="cons">
 <ul>
+  <!--
   <li>It can be difficult to determine the correct form
   of a forward declaration in the presence of features
   like templates, typedefs, default parameters, and using
   declarations.</li>
+  -->
+  <li>テンプレート、typedef、デフォルトパラメータ、
+    そしてusing宣言のような機能の存在の中で、
+    前方宣言の正しい用法を決めることは難しいかもません。
+  </li>
 
+  <!--
   <li>It can be difficult to determine whether a forward
   declaration or a full <code>#include</code> is needed
   for a given piece of code, particularly when implicit
@@ -294,26 +333,57 @@ used by the client code.</p>
   replacing an <code>#include</code> with a forward
   declaration can silently change the meaning of
   code.</li>
+  -->
+  <li>特に、暗黙の変換演算子が呼び出されているときには、
+    与えられたコードの断片に対して、
+    前方宣言か完全な<code>#include</code>のどちらが
+    必要かを決めることは難しいかもしれません。</li>
 
+  <!--
   <li>Forward declaring multiple symbols from a header
   can be more verbose than simply
   <code>#include</code>ing the header.</li>
+  -->
+  <li>あるヘッダで複数の前方宣言は、
+    単純に<code>#include</code>でヘッダを含めるより、
+    冗長かもしれません。</li>
 
+  <!--
   <li>Forward declarations of functions and templates can
   prevent the header owners from making
   otherwise-compatible changes to their APIs; for
   example, widening a parameter type, or adding a
   template parameter with a default value.</li>
+  -->
+  <li>関数とテンプレートの前方宣言は、ヘッダの所有者が、
+    それらのAPIに対して本当であれば互換性のある変更を
+    することを妨げるかもしれません。
+    例えば、引数の型を増やしたり、
+    デフォルト値ありのテンプレートパラメータを追加する変更です。</li>
+
+  <!--
   <li>Forward declaring symbols from namespace
   <code>std::</code> usually yields undefined
   behavior.</li>
+  -->
+  <li><code>std::</code>名前空間からシンボルを前方宣言することは、
+    通常は未定義の動作を引き起こします。</li>
 
+  <!--
   <li>Structuring code to enable forward declarations
   (e.g. using pointer members instead of object members)
   can make the code slower and more complex.</li>
+  -->
+  <li>オブジェクトのメンバを使う代わりにポインタメンバを使う例のように、
+    前方宣言を可能にするためにコードを構造化することは、
+    コードをより遅く複雑にします。</li>
 
+  <!--
   <li>The practical efficiency benefits of forward
   declarations are unproven.</li>
+  -->
+  <li>前方宣言の実用的な効率のメリットは証明されていません。</li>
+
 </ul>
 </div>
 
