@@ -334,8 +334,8 @@ used by the client code.</p>
   declaration can silently change the meaning of
   code.</li>
   -->
-  <li>特に、暗黙の変換演算子が呼び出されているときには、
-    与えられたコードの断片に対して、
+  <li>特に暗黙の変換演算子が呼び出されているときには、
+    与えられたコードの断片に対して
     前方宣言か完全な<code>#include</code>のどちらが
     必要かを決めることは難しいかもしれません。</li>
 
@@ -344,8 +344,8 @@ used by the client code.</p>
   can be more verbose than simply
   <code>#include</code>ing the header.</li>
   -->
-  <li>あるヘッダで複数の前方宣言は、
-    単純に<code>#include</code>でヘッダを含めるより、
+  <li>あるヘッダで複数の前方宣言は
+    単純に<code>#include</code>でヘッダを含めるより
     冗長かもしれません。</li>
 
   <!--
@@ -355,9 +355,9 @@ used by the client code.</p>
   example, widening a parameter type, or adding a
   template parameter with a default value.</li>
   -->
-  <li>関数とテンプレートの前方宣言は、ヘッダの所有者が、
-    それらのAPIに対して本当であれば互換性のある変更を
-    することを妨げるかもしれません。
+  <li>関数とテンプレートの前方宣言は、
+    ヘッダの所有者がそれらのAPIに対して
+    本当であれば互換性のある変更をすることを妨げるかもしれません。
     例えば、引数の型を増やしたり、
     デフォルト値ありのテンプレートパラメータを追加する変更です。</li>
 
@@ -366,7 +366,7 @@ used by the client code.</p>
   <code>std::</code> usually yields undefined
   behavior.</li>
   -->
-  <li><code>std::</code>名前空間からシンボルを前方宣言することは、
+  <li><code>std::</code>名前空間からシンボルを前方宣言することは
     通常は未定義の動作を引き起こします。</li>
 
   <!--
@@ -375,7 +375,7 @@ used by the client code.</p>
   can make the code slower and more complex.</li>
   -->
   <li>オブジェクトのメンバを使う代わりにポインタメンバを使う例のように、
-    前方宣言を可能にするためにコードを構造化することは、
+    前方宣言を可能にするためにコードを構造化することは
     コードをより遅く複雑にします。</li>
 
   <!--
@@ -389,24 +389,46 @@ used by the client code.</p>
 
 <div class="decision">
 <ul>
+  <!--
   <li>When using a function declared in a header file,
   always <code>#include</code> that header.</li>
+  -->
+  <li>ヘッダファイルで宣言された関数を使うときは、
+    常にそのヘッダファイルを<code>#include</code>してください。</li>
 
+  <!--
   <li>When using a class template, prefer to
   <code>#include</code> its header file.</li>
+  -->
+  <li>クラステンプレートを使うときは、
+    そのヘッダファイルを<code>#include</code>することを優先してください。</li>
 
+  <!--
   <li>When using an ordinary class, relying on a forward
   declaration is OK, but be wary of situations where a
   forward declaration may be insufficient or incorrect;
   when in doubt, just <code>#include</code> the
   appropriate header.</li>
+  -->
+  <li>普通のクラスを使うときに、前方宣言に頼ることは構いませんが、
+    前方宣言が間違っていたり非効率的であるかもしれない状況に注意してください。
+    怪しいときには、そのヘッダを単に<code>#include</code>してください。</li>
 
+  <!--
   <li>Do not replace data members with pointers just to
   avoid an <code>#include</code>.</li>
+  -->
+  <li><code>#include</code>を避けるためだけに、
+    データメンバをポインタに置き換えないでください。</li>
 </ul>
 
+<!--
 <p>Please see <a href="#Names_and_Order_of_Includes">Names and Order
 of Includes</a> for rules about when to #include a header.</p>
+-->
+<p>ヘッダをインクルードするときのルールについては、
+  <a href="#Names_and_Order_of_Includes">インクルードの名前と順序</a>
+  を参照してください。</p>
 </div>
 
 </div> 
