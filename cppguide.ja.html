@@ -576,15 +576,22 @@ functions may require you to bend the rule.</p>
 
 </div> 
 
-<h3 id="Names_and_Order_of_Includes">Names and Order of Includes</h3>
+<h3 id="Names_and_Order_of_Includes">インクルードの名前と順序</h3>
 
 <div class="summary">
+<!--
 <p>Use standard order for readability and to avoid hidden
 dependencies: Related header, C library, C++ library,  other libraries'
 <code>.h</code>, your project's <code>.h</code>.</p>
+-->
+<p>可読性のためと隠れた依存関係を避けるために標準的な順序を使いましょう。
+対応するヘッダ、Cライブラリ、C++ライブラリ、
+その他のライブラリの<code>.h</code>、
+あなたのプロジェクトの<code>.h</code>の順序です。</p>
 </div>
 
 <div class="stylebody">
+<!--
 <p>
 All of a project's header files should be
 listed as descendants of the project's source
@@ -594,16 +601,34 @@ directory without use of UNIX directory shortcuts
 
 <code>google-awesome-project/src/base/logging.h</code>
 should be included as:</p>
+-->
+<p>あるプロジェクトのヘッダファイルすべてを、
+UNIXのディレクトリショートカット<code>.</code>(カレントディレクトリ)や
+<code>..</code>(親ディレクトリ)を使わずに、
+プロジェクトのソースディレクトリを下りるように並べて書くべきです。
+例えば、
+
+<code>google-awesome-project/src/base/logging.h</code>
+
+は次のようにインクルードします。</p>
 
 <pre>#include "base/logging.h"
 </pre>
 
+<!--
 <p>In <code><var>dir/foo</var>.cc</code> or
 <code><var>dir/foo_test</var>.cc</code>, whose main
 purpose is to implement or test the stuff in
 <code><var>dir2/foo2</var>.h</code>, order your includes
 as follows:</p>
+-->
+<p><code><var>dir/foo</var>.cc</code>や
+<code><var>dir/foo_test</var>.cc</code>の中では、
+<code><var>dir2/foo2</var>.h</code>の中にあるものを
+実装するかテストすることが主な目的です。
+したがって、インクルードは次のように並べてください。</p>
 
+<!--
 <ol>
   <li><code><var>dir2/foo2</var>.h</code>.</li>
 
@@ -618,7 +643,20 @@ as follows:</p>
   Your project's <code>.h</code>
   files.</li>
 </ol>
+-->
+<ol>
+  <li><code><var>dir2/foo2</var>.h</code></li>
 
+  <li>Cのシステムファイル</li>
+
+  <li>C++のシステムファイル</li>
+
+  <li>その他のライブラリの<code>.h</code>ファイル</li>
+
+  <li>あなたのプロジェクトの<code>.h</code>ファイル</li>
+</ol>
+
+<!--
 <p>With the preferred ordering, if
 <code><var>dir2/foo2</var>.h</code> omits any necessary
 includes, the build of <code><var>dir/foo</var>.cc</code>
@@ -626,19 +664,41 @@ or <code><var>dir/foo</var>_test.cc</code> will break.
 Thus, this rule ensures that build breaks show up first
 for the people working on these files, not for innocent
 people in other packages.</p>
+-->
+<p>優先順序を守っても、
+もし<code><var>dir2/foo2</var>.h</code>が必要なインクルードを省略していたら、
+<code><var>dir/foo</var>.cc</code>や
+<code><var>dir/foo</var>_test.cc</code>のビルドは壊れてしまうでしょう。
+このように、このルールは、
+それらのファイルとともに仕事をする人々に対しては
+ビルド失敗を最初に明らかにすることを保証してくれますが、
+他のパッケージの中で仕事をしている無知な人々に対してはそうではありません。</p>
 
+<!--
 <p><code><var>dir/foo</var>.cc</code> and
 <code><var>dir2/foo2</var>.h</code> are usually in the same
 directory (e.g. <code>base/basictypes_test.cc</code> and
 <code>base/basictypes.h</code>), but may sometimes be in different
 directories too.</p>
+-->
+<p><code><var>dir/foo</var>.cc</code>と
+<code><var>dir2/foo2</var>.h</code>は、
+通常同じディレクトリに置かれます。
+そのような例としては、
+<code>base/basictypes_test.cc</code>と
+<code>base/basictypes.h</code>です。
+しかし、ときどき違うディレクトリに置かれることもあります。</p>
 
-
-
+<!--
 <p>Within each section the includes should be ordered
 alphabetically. Note that older code might not conform to
 this rule and should be fixed when convenient.</p>
+-->
+<p>各セクションの中のインクルードはアルファベット順で並べるべきです。
+古いコードはこのルールにしたがっていないかもしれませんが、
+都合のよいときに修正するべきです。</p>
 
+<!--
 <p>You should include all the headers that define the symbols you rely
 upon (except in cases of <a href="#Forward_Declarations">forward
 declaration</a>). If you rely on symbols from <code>bar.h</code>,
@@ -649,12 +709,31 @@ to provide you the symbols of <code>bar.h</code>.  However, any
 includes present in the related header do not need to be included
 again in the related <code>cc</code> (i.e., <code>foo.cc</code> can
 rely on <code>foo.h</code>'s includes).</p>
+-->
+<p>依存しているシンボルを定義するヘッダはすべてインクルードするべきです
+(<a href="#Forward_Declarations">前方宣言</a>のケースを除きます)。
+もし<code>bar.h</code>のシンボルに依存するのであれば、
+<code>bar.h</code>をインクルードする
+<code>foo.h</code>をインクルードしたことに頼ってはいけません。
+<code>foo.h</code>が<code>bar.h</code>
+のシンボルを提供することを明示的に意図している場合を除いて、
+<code>bar.h</code>を自分でインクルードしてください。
+しかしながら、関連するヘッダ中にあるインクルードを、
+関連する<code>cc</code>の中で再びインクルードする必要はありません
+(例えば、<code>foo.cc</code>は<code>foo.h</code>
+のインクルードに頼って構いません)。</p>
 
+<!--
 <p>For example, the includes in
 
 <code>google-awesome-project/src/foo/internal/fooserver.cc</code>
 might look like this:</p>
+-->
+<p>例えば、
 
+<code>google-awesome-project/src/foo/internal/fooserver.cc</code>
+
+の中のインクルードは次のようになります。</p>
 
 <pre>#include "foo/server/fooserver.h"
 
@@ -668,10 +747,18 @@ might look like this:</p>
 #include "foo/server/bar.h"
 </pre>
 
+<!--
 <p class="exception">Sometimes, system-specific code needs
 conditional includes. Such code can put conditional
 includes after other includes. Of course, keep your
 system-specific code small and localized. Example:</p>
+-->
+<p class="exception">ときどき、
+システム依存のコードは条件付きでインクルードする必要があります。
+そのようなコードは、
+他のインクルードの後に条件付きのインクルードを置いてください。
+もちろん、システム依存のコードは小さく局所的になるようにしましょう。
+</p>
 
 <pre>#include "foo/public/fooserver.h"
 
