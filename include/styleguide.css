@@ -1,5 +1,12 @@
 /* General CSS */
 
+div.para {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  border-spacing: 1px;
+}
+
 body {
   background-color: #fff;
   color: #333;

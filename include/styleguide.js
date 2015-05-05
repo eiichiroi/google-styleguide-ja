@@ -278,6 +278,89 @@ function LinkifyHeaders() {
   LinkifyHeadersForTag('h4');
 }
 
+function ChangeDisplayModeToNormal() {
+  var paraElements = document.getElementsByClassName('para');
+  for (var i = 0; i < paraElements.length; i++) {
+    var paraChildren = paraElements[i].children;
+    for (var j = 0; j < paraChildren.length; j++) {
+      if (paraChildren[j].className == 'ja') {
+	paraChildren[j].style.display = 'block';
+      } else {
+        paraChildren[j].style.display = 'none';
+      }
+      paraChildren[j].style.border = '';
+      paraChildren[j].style.width = '100%';
+    }
+  }
+}
+
+function ChangeDisplayModeToParallel() {
+  var paraElements = document.getElementsByClassName('para');
+  for (var i = 0; i < paraElements.length; i++) {
+    var paraChildren = paraElements[i].children;
+    for (var j = 0; j < paraChildren.length; j++) {
+      paraChildren[j].style.display = 'table-cell';
+      paraChildren[j].style.border = '1px solid #ccc';
+      paraChildren[j].style.width = '50%';
+    }
+  }
+}
+
+DisplayModeEnum = {
+  NORMAL: 0,
+  PARALLEL: 1
+};
+var DisplayMode = DisplayModeEnum.NORMAL;
+
+function ChangeDisplayModeButton() {
+  var input = document.getElementById('DisplayModeButton');
+  if (DisplayMode == DisplayModeEnum.NORMAL) {
+    input.value = '原文を並列表示';
+    input.onclick = function() {
+      ChangeDisplayMode(DisplayModeEnum.PARALLEL);
+    };
+  } else if (DisplayMode == DisplayModeEnum.PARALLEL) {
+    input.value = '翻訳文のみ表示';
+    input.onclick = function() {
+      ChangeDisplayMode(DisplayModeEnum.NORMAL);
+    };
+  } else {
+  }
+}
+
+function ChangeDisplayMode(displayMode) {
+  if (displayMode == DisplayModeEnum.NORMAL) {
+    ChangeDisplayModeToNormal();
+    DisplayMode = displayMode;
+    ChangeDisplayModeButton();
+  } else if (displayMode == DisplayModeEnum.PARALLEL) {
+    ChangeDisplayModeToParallel();
+    DisplayMode = displayMode;
+    ChangeDisplayModeButton();
+  } else {
+  }
+}
+
+function CreateDisplayModeButton() {
+  var input = document.createElement('input');
+  input.id = 'DisplayModeButton';
+  input.type = 'button';
+  if (DisplayMode == DisplayModeEnum.NORMAL) {
+    input.value = '原文を並列表示';
+    input.onclick = function() {
+      ChangeDisplayMode(DisplayModeEnum.PARALLEL);
+    };
+  } else if (DisplayMode == DisplayModeEnum.PARALLEL) {
+    input.value = '翻訳文のみ表示';
+    input.onclick = function() {
+      ChangeDisplayMode(DisplayModeEnum.NORMAL);
+    };
+  } else {
+  }
+  var background = document.getElementById('Background');
+  background.parentNode.insertBefore(input, background);
+}
+
 /*
  * Initialize the style guide by showing all internal
  * elements and then linkifying the headers.
@@ -286,4 +369,6 @@ function LinkifyHeaders() {
 function initStyleGuide() {
   LinkifyHeaders();
   CreateTOC('tocDiv');
+  CreateDisplayModeButton();
+  ChangeDisplayMode(DisplayModeEnum.PARALLEL);
 }

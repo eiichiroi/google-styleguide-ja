@@ -24,43 +24,43 @@
 
 <h2 class="ignoreLink" id="Background">背景</h2>
 
-<!--
+<div class="para">
 <p>C++ is the main development language  used by
 many of Google's open-source projects. As every C++
 programmer knows, the language has many powerful features, but
 this power brings with it complexity, which in turn can make
 code more bug-prone and harder to read and maintain.</p>
--->
-<p>C++はGoogleのオープンソースプロジェクトの多くで使われている主な開発言語です。
+<p class="ja">C++はGoogleのオープンソースプロジェクトの多くで使われている主な開発言語です。
 C++プログラマのみなさんが知っているとおり、C++は多くの強力な機能を持っていますが、
 その力は複雑さをともないます。それによって、コードをバグがより発生しやすくしたり、
 読んだり保守することを難しくすることもできます。</p>
+</div>
 
-<!--
+<div class="para">
 <p>The goal of this guide is to manage this complexity by
 describing in detail the dos and don'ts of writing C++ code.
 These rules exist to
 keep  the code base manageable while still allowing
 coders to use C++ language features productively.</p>
--->
-<p>このガイドのゴールは、C++のコードを書く上でのべし・べからずの
+<p class="ja">このガイドのゴールは、C++のコードを書く上でのべし・べからずの
 詳細を記述することで、この複雑さを管理することです。
 これらのルールは、C++の言語機能を生産的に使うことを許しつつ、
 コードベースを管理可能な状態に保つために存在します。</p>
+</div>
 
-<!--
+<div class="para">
 <p><em>Style</em>, also known as readability, is what we call
 the conventions that govern our C++ code. The term Style is a
 bit of a misnomer, since these conventions cover far more than
 just source file formatting.</p>
--->
-<p><em>スタイル</em>は、可読性としても知られるように、
+<p class="ja"><em>スタイル</em>は、可読性としても知られるように、
 わたしたちのC++のコードを律する約束と呼んでいます。
 これらの約束は単なるソースファイルのフォーマットより
 はるかに多くのものをカバーしているため、
 スタイルという言葉は少し不適切かもしれません。</p>
+</div>
 
-<!--
+<div class="para">
 <p>One way in which we keep the code base manageable is by
 enforcing <em>consistency</em>.  It is very
 important that any 
@@ -73,16 +73,16 @@ idioms and patterns makes code much easier to understand. In
 some cases there might be good arguments for changing certain
 style rules, but we nonetheless keep things as they are in
 order to preserve consistency.</p>
--->
-<p>コードベースを管理可能に保つ一つの方法は、<em>一貫性</em>を強制することです。
+<p class="ja">コードベースを管理可能に保つ一つの方法は、<em>一貫性</em>を強制することです。
 どのプログラマでも他人のコードを読むことができ、
 すばやく理解できることはとても重要です。
 一定のスタイルを維持しつつ約束を守ることは、
 多くのシンボルが何であるか、
 それらが満たす不変性が何であるかということを推測するために、
 パターンマッチングをより簡単に使うことができます。</p>
+</div>
 
-<!--
+<div class="para">
 <p>Another issue this guide addresses is that of C++ feature
 bloat. C++ is a huge language with many advanced features. In
 some cases we constrain, or even ban, use of certain features.
@@ -90,114 +90,113 @@ We do this to keep code simple and to avoid the various common
 errors and problems that these features can cause. This guide
 lists these features and explains why their use is
 restricted.</p>
--->
-<p>このガイドが扱うその他の問題の一つはC++の機能の膨大さです。
+<p class="ja">このガイドが扱うその他の問題の一つはC++の機能の膨大さです。
 C++は多くの応用的な機能をもつ巨大な言語です。
 いくつかのケースでは、わたしたちはある程度の機能の使用を制限、
 もしくは、禁止にさえします。コードを簡潔に保ち、
 様々な共通する誤りやそれらの機能が引き起こす可能性のある問題を避けるために、
 このようにしています。このガイドはこれらの機能を一覧にして、
 なぜそれらの使用を制限するのかを説明します。</p>
+</div>
 
-<!--
+<div class="para">
 <p> Open-source projects
 developed by Google conform to the requirements in this
 guide.</p>
--->
-<p>Googleで開発されるオープンソースプロジェクトは
+<p class="ja">Googleで開発されるオープンソースプロジェクトは
 このガイドの要件にしたがいます。</p>
+</div>
 
-<!--
+<div class="para">
 <p>Note that this guide is not a C++ tutorial: we assume that
 the reader is familiar with the language. </p>
--->
-<p>このガイドはC++のチュートリアルではないことに注意してください。
+<p class="ja">このガイドはC++のチュートリアルではないことに注意してください。
 C++に親しんでいる読者を想定しています。</p>
+</div>
 
 
 <h2 id="Header_Files">ヘッダファイル</h2>
 
-<!--
+<div class="para">
 <p>In general, every <code>.cc</code> file should have an
 associated <code>.h</code> file. There are some common
 exceptions, such as  unittests and
 small <code>.cc</code> files containing just a
 <code>main()</code> function.</p>
--->
-<p>一般的に、
+<p class="ja">一般的に、
 各<code>.cc</code>ファイルは対応する<code>.h</code>ファイルをもつべきです。
 単体テストや
 <code>main()</code>関数だけを含む小さな<code>.cc</code>ファイルのような、
 いくつかの共通する例外は除きます。
 </p>
+</div>
 
-<!--
+<div class="para">
 <p>Correct use of header files can make a huge difference to
 the readability, size and performance of your code.</p>
--->
-<p>ヘッダファイルを正しく使うことで、
+<p class="ja">ヘッダファイルを正しく使うことで、
 コードの可読性、サイズや性能を大きく変えることができます。</p>
+</div>
 
-<!--
+<div class="para">
 <p>The following rules will guide you through the various
 pitfalls of using header files.</p>
--->
-<p>以下のルールは、
+<p class="ja">以下のルールは、
 ヘッダファイルを使う上での様々な落とし穴を避けるためのガイドです。</p>
+</div>
 
 <a id="The_-inl.h_Files"></a>
 <h3 id="Self_contained_Headers">自己完結するヘッダ</h3>
 
 <div class="summary">
-<!--
+<div class="para">
 <p>Header files should be self-contained and end in <code>.h</code>. Files that
 are meant for textual inclusion, but are not headers, should end in
 <code>.inc</code>. Separate <code>-inl.h</code> headers are disallowed.</p>
--->
-<p>ヘッダーファイルは自己完結しているべきであり、<code>.h</code>で終わるべきです。
+<p class="ja">ヘッダーファイルは自己完結しているべきであり、<code>.h</code>で終わるべきです。
 文字列の取り込みを意図したファイルは、ヘッダではありませんが、
 <code>.inc</code>で終わるべきです。
 <code>-inl.h</code>ヘッダに分離することは禁止されています。</p>
+</div>
 </div> 
 
 <div class="stylebody">
-<!--
+<div class="para">
 <p>All header files should be self-contained. In other
 words, users and refactoring tools should not have to adhere to special
 conditions in order to include the header. Specifically, a
 header should have <a href="#The__define_Guard">header guards</a>,
 should include all other headers it needs, and should not require any
 particular symbols to be defined.</p>
--->
-<p>すべてのヘッダファイルは自己完結しているべきです。言い換えると、
+<p class="ja">すべてのヘッダファイルは自己完結しているべきです。言い換えると、
 ユーザとリファクタリングツールはヘッダを含めるために
 特別な条件をつけるべきではありません。特に、
 ヘッダは<a href="#The__define_Guard">ヘッダガード</a>をもつべきであり、
 それが必要とするその他すべてのヘッダを含むべきであり、
 これといったシンボルの定義を要求するべきではありません。</p>
+</div>
 
-<!--
+<div class="para">
 <p>There are rare cases where a file is not meant to be self-contained, but
 instead is meant to be textually included at a specific point in the code.
 Examples are files that need to be included multiple times or
 platform-specific extensions that essentially are part of other headers. Such
 files should use the file extension <code>.inc</code>.</p>
--->
-<p>あるファイルが自己完結しておらず、その代わりに、
+<p class="ja">あるファイルが自己完結しておらず、その代わりに、
 コード中のある特定箇所で文字列として取り込まれることになっているという
 特殊なケースがあります。例としては、複数回含める必要があるファイルや、
 本質的に他のヘッダの一部であるプラットフォーム固有の拡張です。
 そのようなファイルはファイル拡張子<code>.inc</code>を使うべきです。
 </p>
+</div>
 
-<!--
+<div class="para">
 <p>If a template or inline function is declared in a <code>.h</code> file,
 define it in that same file. The definitions of these constructs must
 be included into every <code>.cc</code> file that uses them, or the
 program may fail to link in some build configurations. Do not move these
 definitions to separate <code>-inl.h</code> files.</p>
--->
-<p>もしテンプレートやインライン関数が
+<p class="ja">もしテンプレートやインライン関数が
 <code>.h</code>ファイルの中で宣言されているのであれば、
 同じファイルの中で定義してください。それらを構成する定義は
 それらを使う各々の<code>.cc</code>ファイルに含めなけれいけません。
@@ -205,50 +204,51 @@ definitions to separate <code>-inl.h</code> files.</p>
 いくつかのビルド環境設定ではそのプログラムはリンクに失敗するかもしれません。
 <code>-inl.h</code>ファイルに分離するためにこれらの定義を移動してはいけません。
 </p>
+</div>
 
-<!--
+<div class="para">
 <p>As an exception, a function template that is explicitly
 instantiated for all relevant sets of template arguments, or
 that is a private member of a class, may
 be defined in the only <code>.cc</code> file that
 instantiates the template.</p>
--->
-<p>例外として、
+<p class="ja">例外として、
 関連するテンプレート引数すべてに対して特殊化された関数テンプレートや、
 あるクラスのプライベートメンバである関数テンプレートは、
 テンプレートを特殊化する
 <code>.cc</code>ファイルの中でのみ定義されるかもしれません。</p>
+</div>
 
 </div> 
 
 <h3 id="The__define_Guard">#defineガード</h3>
 
 <div class="summary">
-<!--
+<div class="para">
 <p>All header files should have <code>#define</code> guards to
 prevent multiple inclusion. The format of the symbol name
 should be
 <code><i>&lt;PROJECT&gt;</i>_<i>&lt;PATH&gt;</i>_<i>&lt;FILE&gt;</i>_H_</code>.</p>
--->
-<p>すべてのヘッダファイルは複数回の取り込みを防ぐために
+<p class="ja">すべてのヘッダファイルは複数回の取り込みを防ぐために
 <code>#define</code>ガードをもつべきです。そのシンボル名のフォーマットは、
 <code><i>&lt;PROJECT&gt;</i>_<i>&lt;PATH&gt;</i>_<i>&lt;FILE&gt;</i>_H_</code>であるべきです。</p>
+</div>
 </div> 
 
 <div class="stylebody">
 
 
-<!--
+<div class="para">
 <p>To guarantee uniqueness, they should
 be based on the full path in a project's source tree. For
 example, the file <code>foo/src/bar/baz.h</code> in
 project <code>foo</code> should have the following
 guard:</p>
--->
-<p>一意性を保証するために、
+<p class="ja">一意性を保証するために、
 プロジェクトのソースツリー中のフルパスに基づくべきです。例えば、
 プロジェクト<code>foo</code>の中にあるファイル<code>foo/src/bar/baz.h</code>
 は以下のガードをもつべきです。</p>
+</div>
 
 <pre>#ifndef FOO_BAR_BAZ_H_
 #define FOO_BAR_BAZ_H_
@@ -266,32 +266,32 @@ guard:</p>
 <h3 id="Forward_Declarations">前方宣言</h3>
 
 <div class="summary">
-<!--
+<div class="para">
 <p>You may forward declare ordinary classes in order to avoid
 unnecessary <code>#include</code>s.</p>
--->
-<p>不要な<code>#include</code>を回避するために、
+<p class="ja">不要な<code>#include</code>を回避するために、
 普通のクラスを前方宣言しても構いません。</p>
+</div>
 </div>
 
 <div class="stylebody">
 
 <div class="definition">
-<!--
+<div class="para">
 <p>A "forward declaration" is a declaration of a class,
 function, or template without an associated definition.
 <code>#include</code> lines can often be replaced with
 forward declarations of whatever symbols are actually
 used by the client code.</p>
--->
-<p>前方宣言とは、対応する定義をもたないクラス、関数、テンプレートの宣言です。
+<p class="ja">前方宣言とは、対応する定義をもたないクラス、関数、テンプレートの宣言です。
 <code>#include</code>行は、
 クライアントコードに実際に使われるどんなシンボルの前方宣言とともに
 しばしば置き換えられます。</p>
 </div>
+</div>
 
 <div class="pros">
-<!--
+<div class="para">
 <ul>
   <li>Unnecessary <code>#include</code>s force the
   compiler to open more files and process more
@@ -300,8 +300,7 @@ used by the client code.</p>
   <li>They can also force your code to be recompiled more
   often, due to changes in the header.</li>
 </ul>
--->
-<ul>
+<ul class="ja">
   <li>不要な<code>#include</code>は、
     たくさんのファイルを開いてより多くの入力を処理することを
     コンパイラに強制します。</li>
@@ -309,23 +308,17 @@ used by the client code.</p>
   <li>ヘッダー中の変更によって、
     もっと頻繁にコードが再コンパイルされることが強いられます。</li>
 </ul>
-
+</div>
 </div>
 
 <div class="cons">
+<div class="para">
 <ul>
-  <!--
   <li>It can be difficult to determine the correct form
   of a forward declaration in the presence of features
   like templates, typedefs, default parameters, and using
   declarations.</li>
-  -->
-  <li>テンプレート、typedef、デフォルトパラメータ、
-    そしてusing宣言のような機能の存在の中で、
-    前方宣言の正しい用法を決めることは難しいかもません。
-  </li>
 
-  <!--
   <li>It can be difficult to determine whether a forward
   declaration or a full <code>#include</code> is needed
   for a given piece of code, particularly when implicit
@@ -333,102 +326,104 @@ used by the client code.</p>
   replacing an <code>#include</code> with a forward
   declaration can silently change the meaning of
   code.</li>
-  -->
-  <li>特に暗黙の変換演算子が呼び出されているときには、
-    与えられたコードの断片に対して
-    前方宣言か完全な<code>#include</code>のどちらが
-    必要かを決めることは難しいかもしれません。</li>
 
-  <!--
   <li>Forward declaring multiple symbols from a header
   can be more verbose than simply
   <code>#include</code>ing the header.</li>
-  -->
-  <li>あるヘッダで複数の前方宣言は
-    単純に<code>#include</code>でヘッダを含めるより
-    冗長かもしれません。</li>
 
-  <!--
   <li>Forward declarations of functions and templates can
   prevent the header owners from making
   otherwise-compatible changes to their APIs; for
   example, widening a parameter type, or adding a
   template parameter with a default value.</li>
-  -->
+
+  <li>Forward declaring symbols from namespace
+  <code>std::</code> usually yields undefined
+  behavior.</li>
+
+  <li>Structuring code to enable forward declarations
+  (e.g. using pointer members instead of object members)
+  can make the code slower and more complex.</li>
+
+  <li>The practical efficiency benefits of forward
+  declarations are unproven.</li>
+
+</ul>
+<ul class="ja">
+  <li>テンプレート、typedef、デフォルトパラメータ、
+    そしてusing宣言のような機能の存在の中で、
+    前方宣言の正しい用法を決めることは難しいかもません。
+  </li>
+
+  <li>特に暗黙の変換演算子が呼び出されているときには、
+    与えられたコードの断片に対して
+    前方宣言か完全な<code>#include</code>のどちらが
+    必要かを決めることは難しいかもしれません。</li>
+
+  <li>あるヘッダで複数の前方宣言は
+    単純に<code>#include</code>でヘッダを含めるより
+    冗長かもしれません。</li>
+
   <li>関数とテンプレートの前方宣言は、
     ヘッダの所有者がそれらのAPIに対して
     本当であれば互換性のある変更をすることを妨げるかもしれません。
     例えば、引数の型を増やしたり、
     デフォルト値ありのテンプレートパラメータを追加する変更です。</li>
 
-  <!--
-  <li>Forward declaring symbols from namespace
-  <code>std::</code> usually yields undefined
-  behavior.</li>
-  -->
   <li><code>std::</code>名前空間からシンボルを前方宣言することは
     通常は未定義の動作を引き起こします。</li>
 
-  <!--
-  <li>Structuring code to enable forward declarations
-  (e.g. using pointer members instead of object members)
-  can make the code slower and more complex.</li>
-  -->
   <li>オブジェクトのメンバを使う代わりにポインタメンバを使う例のように、
     前方宣言を可能にするためにコードを構造化することは
     コードをより遅く複雑にします。</li>
 
-  <!--
-  <li>The practical efficiency benefits of forward
-  declarations are unproven.</li>
-  -->
   <li>前方宣言の実用的な効率のメリットは証明されていません。</li>
 
 </ul>
 </div>
+</div>
 
 <div class="decision">
+<div class="para">
 <ul>
-  <!--
   <li>When using a function declared in a header file,
   always <code>#include</code> that header.</li>
-  -->
-  <li>ヘッダファイルで宣言された関数を使うときは、
-    常にそのヘッダファイルを<code>#include</code>してください。</li>
 
-  <!--
   <li>When using a class template, prefer to
   <code>#include</code> its header file.</li>
-  -->
-  <li>クラステンプレートを使うときは、
-    そのヘッダファイルを<code>#include</code>することを優先してください。</li>
 
-  <!--
   <li>When using an ordinary class, relying on a forward
   declaration is OK, but be wary of situations where a
   forward declaration may be insufficient or incorrect;
   when in doubt, just <code>#include</code> the
   appropriate header.</li>
-  -->
+
+  <li>Do not replace data members with pointers just to
+  avoid an <code>#include</code>.</li>
+</ul>
+<ul class="ja">
+  <li>ヘッダファイルで宣言された関数を使うときは、
+    常にそのヘッダファイルを<code>#include</code>してください。</li>
+
+  <li>クラステンプレートを使うときは、
+    そのヘッダファイルを<code>#include</code>することを優先してください。</li>
+
   <li>普通のクラスを使うときに、前方宣言に頼ることは構いませんが、
     前方宣言が間違っていたり非効率的であるかもしれない状況に注意してください。
     怪しいときには、そのヘッダを単に<code>#include</code>してください。</li>
 
-  <!--
-  <li>Do not replace data members with pointers just to
-  avoid an <code>#include</code>.</li>
-  -->
   <li><code>#include</code>を避けるためだけに、
     データメンバをポインタに置き換えないでください。</li>
 </ul>
+</div>
 
-<!--
+<div class="para">
 <p>Please see <a href="#Names_and_Order_of_Includes">Names and Order
 of Includes</a> for rules about when to #include a header.</p>
--->
-<p>ヘッダをインクルードするときのルールについては、
+<p class="ja">ヘッダをインクルードするときのルールについては、
   <a href="#Names_and_Order_of_Includes">インクルードの名前と順序</a>
   を参照してください。</p>
+</div>
 </div>
 
 </div> 
@@ -436,41 +431,41 @@ of Includes</a> for rules about when to #include a header.</p>
 <h3 id="Inline_Functions">インライン関数</h3>
 
 <div class="summary">
-<!--
+<div class="para">
 <p>Define functions inline only when they are small, say, 10
 lines or less.</p>
--->
-<p>10行以下の小さいときだけ関数をインラインとして定義してください。</p>
+<p class="ja">10行以下の小さいときだけ関数をインラインとして定義してください。</p>
+</div>
 </div>
 
 <div class="stylebody">
 
 <div class="definition">
-<!--
+<div class="para">
 <p>You can declare functions in a way that allows the compiler to expand
 them inline rather than calling them through the usual
 function call mechanism.</p>
--->
-<p>通常の関数呼び出し規約を通じて呼び出すより、
+<p class="ja">通常の関数呼び出し規約を通じて呼び出すより、
   インラインに展開することをコンパイラに許可する
   関数の宣言方法があります。</p>
 </div>
+</div>
 
 <div class="pros">
-<!--
+<div class="para">
 <p>Inlining a function can generate more efficient object
 code, as long as the inlined function is small. Feel free
 to inline accessors and mutators, and other short,
 performance-critical functions.</p>
--->
-<p>インライン化された関数が小さければ、
+<p class="ja">インライン化された関数が小さければ、
   関数のインライン化はオブジェクトコードをより効率的に生成します。
   アクセッサやミューテータ(読込みメソッドや書込みメソッド)、
   短くて性能が重要な関数などで、気軽にインライン化してください。</p>
 </div>
+</div>
 
 <div class="cons">
-<!--
+<div class="para">
 <p>Overuse of inlining can actually make programs slower.
 Depending on a function's size, inlining it can cause the
 code size to increase or decrease. Inlining a very small
@@ -478,9 +473,7 @@ accessor function will usually decrease code size while
 inlining a very large function can dramatically increase
 code size. On modern processors smaller code usually runs
 faster due to better use of the instruction cache.</p>
-</div>
--->
-<p>インライン化の濫用は実際にはプログラムを遅くします。
+<p class="ja">インライン化の濫用は実際にはプログラムを遅くします。
 関数のサイズにも依存しますが、
 インライン化はコードサイズの増減を引き起こすかもしれません。
 とても大きい関数のインライン化はコードサイズを劇的に増やす一方で、
@@ -488,30 +481,32 @@ faster due to better use of the instruction cache.</p>
 最近のプロセッサでは、命令キャッシュをよりよく使うため、
 短いコードほど速く実行します。
 </p>
+</div>
+</div>
 
 <div class="decision">
-<!--
+<div class="para">
 <p>A decent rule of thumb is to not inline a function if
 it is more than 10 lines long. Beware of destructors,
 which are often longer than they appear because of
 implicit member- and base-destructor calls!</p>
--->
-<p>ちゃんとした経験則は、10行より長い関数はインライン化しないことです。
+<p class="ja">ちゃんとした経験則は、10行より長い関数はインライン化しないことです。
 デストラクタの注意点としては、
 暗黙的なメンバであることと基底クラスのデストラクタ呼び出しのため、
 見た目より長くなることです。</p>
+</div>
 
-<!--
+<div class="para">
 <p>Another useful rule of thumb: it's typically not cost
 effective to inline functions with loops or switch
 statements (unless, in the common case, the loop or
 switch statement is never executed).</p>
--->
-<p>その他に役に立つ経験則としては、
+<p class="ja">その他に役に立つ経験則としては、
 ループやswitch文を含む関数のインライン化は費用対効果が良くありません。
 (ほとんどのときにループやswitch文実行されない場合を除きます。)</p>
+</div>
 
-<!--
+<div class="para">
 <p>It is important to know that functions are not always
 inlined even if they are declared as such; for example,
 virtual and recursive functions are not normally inlined.
@@ -520,8 +515,7 @@ main reason for making a virtual function inline is to
 place its definition in the class, either for convenience
 or to document its behavior, e.g., for accessors and
 mutators.</p>
--->
-<p>関数がインラインとして宣言されていたとしても、
+<p class="ja">関数がインラインとして宣言されていたとしても、
 必ずしもインライン化されないことを知っておくことは重要です。
 例えば、仮想関数や再帰関数は通常インライン化されません。
 一風変わっている再帰関数はインラインであってはなりません。
@@ -529,6 +523,7 @@ mutators.</p>
 クラスの中に定義を置くことか、利便性のためか、
 振る舞いを文書化するためです。
 その例は、アクセッサとミューテータ(読込みメソッドや書込みメソッド)です。</p>
+</div>
 </div> 
 
 </div> 
@@ -536,15 +531,15 @@ mutators.</p>
 <h3 id="Function_Parameter_Ordering">関数の引数の順序</h3>
 
 <div class="summary">
-<!--
+<div class="para">
 <p>When defining a function, parameter order is: inputs, then
 outputs.</p>
--->
-<p>関数を定義するときの引数の順序は、入力、それから出力です。</p>
+<p class="ja">関数を定義するときの引数の順序は、入力、それから出力です。</p>
+</div>
 </div>
 
 <div class="stylebody">
-<!--
+<div class="para">
 <p>Parameters to C/C++ functions are either input to the
 function, output from the function, or both. Input
 parameters are usually values or <code>const</code>
@@ -555,44 +550,43 @@ any output parameters. In particular, do not add new
 parameters to the end of the function just because they
 are new; place new input-only parameters before the
 output parameters.</p>
--->
-<p>C/C++の関数の引数は、
+<p class="ja">C/C++の関数の引数は、
 関数への入力か関数からの出力のどちらかか、あるいは両方です。
 出力と入出力引数が<code>const</code>でないポインタである一方で、
 入力引数は通常、値か<code>const</code>参照です。
 関数の引数を並べるとき、すべての入力のみの引数を出力引数の前に置きます。
 特に、新しいからというだけで関数の終わりに新しい引数を追加してはいけません。
 その代わりに、新しい入力のみの引数は出力引数の前に置いてください。</p>
+</div>
 
-<!--
+<div class="para">
 <p>This is not a hard-and-fast rule. Parameters that are
 both input and output (often classes/structs) muddy the
 waters, and, as always, consistency with related
 functions may require you to bend the rule.</p>
--->
-<p>これは杓子定規ではありません。水が濁ってしまうのと同様に、
+<p class="ja">これは杓子定規ではありません。水が濁ってしまうのと同様に、
 (多くの場合クラスや構造体の)入力と出力の両方である引数が、
 関連する関数との一貫性のためにルールをねじ曲げることを求めるかもしれません。</p>
+</div>
 
 </div> 
 
 <h3 id="Names_and_Order_of_Includes">インクルードの名前と順序</h3>
 
 <div class="summary">
-<!--
+<div class="para">
 <p>Use standard order for readability and to avoid hidden
 dependencies: Related header, C library, C++ library,  other libraries'
 <code>.h</code>, your project's <code>.h</code>.</p>
--->
-<p>可読性のためと隠れた依存関係を避けるために標準的な順序を使いましょう。
+<p class="ja">可読性のためと隠れた依存関係を避けるために標準的な順序を使いましょう。
 対応するヘッダ、Cライブラリ、C++ライブラリ、
 その他のライブラリの<code>.h</code>、
 あなたのプロジェクトの<code>.h</code>の順序です。</p>
 </div>
 
 <div class="stylebody">
-<!--
-<p>
+<div class="para">
+<p class="ja">
 All of a project's header files should be
 listed as descendants of the project's source
 directory without use of UNIX directory shortcuts
@@ -601,8 +595,7 @@ directory without use of UNIX directory shortcuts
 
 <code>google-awesome-project/src/base/logging.h</code>
 should be included as:</p>
--->
-<p>あるプロジェクトのヘッダファイルすべてを、
+<p class="ja">あるプロジェクトのヘッダファイルすべてを、
 UNIXのディレクトリショートカット<code>.</code>(カレントディレクトリ)や
 <code>..</code>(親ディレクトリ)を使わずに、
 プロジェクトのソースディレクトリを下りるように並べて書くべきです。
@@ -611,24 +604,25 @@ UNIXのディレクトリショートカット<code>.</code>(カレントディ�
 <code>google-awesome-project/src/base/logging.h</code>
 
 は次のようにインクルードします。</p>
+</div>
 
 <pre>#include "base/logging.h"
 </pre>
 
-<!--
+<div class="para">
 <p>In <code><var>dir/foo</var>.cc</code> or
 <code><var>dir/foo_test</var>.cc</code>, whose main
 purpose is to implement or test the stuff in
 <code><var>dir2/foo2</var>.h</code>, order your includes
 as follows:</p>
--->
-<p><code><var>dir/foo</var>.cc</code>や
+<p class="ja"><code><var>dir/foo</var>.cc</code>や
 <code><var>dir/foo_test</var>.cc</code>の中では、
 <code><var>dir2/foo2</var>.h</code>の中にあるものを
 実装するかテストすることが主な目的です。
 したがって、インクルードは次のように並べてください。</p>
+</div>
 
-<!--
+<div class="para">
 <ol>
   <li><code><var>dir2/foo2</var>.h</code>.</li>
 
@@ -643,8 +637,7 @@ as follows:</p>
   Your project's <code>.h</code>
   files.</li>
 </ol>
--->
-<ol>
+<ol class="ja">
   <li><code><var>dir2/foo2</var>.h</code></li>
 
   <li>Cのシステムファイル</li>
@@ -655,8 +648,9 @@ as follows:</p>
 
   <li>あなたのプロジェクトの<code>.h</code>ファイル</li>
 </ol>
+</div>
 
-<!--
+<div class="para">
 <p>With the preferred ordering, if
 <code><var>dir2/foo2</var>.h</code> omits any necessary
 includes, the build of <code><var>dir/foo</var>.cc</code>
@@ -664,8 +658,7 @@ or <code><var>dir/foo</var>_test.cc</code> will break.
 Thus, this rule ensures that build breaks show up first
 for the people working on these files, not for innocent
 people in other packages.</p>
--->
-<p>優先順序を守っても、
+<p class="ja">優先順序を守っても、
 もし<code><var>dir2/foo2</var>.h</code>が必要なインクルードを省略していたら、
 <code><var>dir/foo</var>.cc</code>や
 <code><var>dir/foo</var>_test.cc</code>のビルドは壊れてしまうでしょう。
@@ -673,32 +666,33 @@ people in other packages.</p>
 それらのファイルとともに仕事をする人々に対しては
 ビルド失敗を最初に明らかにすることを保証してくれますが、
 他のパッケージの中で仕事をしている無知な人々に対してはそうではありません。</p>
+</div>
 
-<!--
+<div class="para">
 <p><code><var>dir/foo</var>.cc</code> and
 <code><var>dir2/foo2</var>.h</code> are usually in the same
 directory (e.g. <code>base/basictypes_test.cc</code> and
 <code>base/basictypes.h</code>), but may sometimes be in different
 directories too.</p>
--->
-<p><code><var>dir/foo</var>.cc</code>と
+<p class="ja"><code><var>dir/foo</var>.cc</code>と
 <code><var>dir2/foo2</var>.h</code>は、
 通常同じディレクトリに置かれます。
 そのような例としては、
 <code>base/basictypes_test.cc</code>と
 <code>base/basictypes.h</code>です。
 しかし、ときどき違うディレクトリに置かれることもあります。</p>
+</div>
 
-<!--
+<div class="para">
 <p>Within each section the includes should be ordered
 alphabetically. Note that older code might not conform to
 this rule and should be fixed when convenient.</p>
--->
-<p>各セクションの中のインクルードはアルファベット順で並べるべきです。
+<p class="ja">各セクションの中のインクルードはアルファベット順で並べるべきです。
 古いコードはこのルールにしたがっていないかもしれませんが、
 都合のよいときに修正するべきです。</p>
+</div>
 
-<!--
+<div class="para">
 <p>You should include all the headers that define the symbols you rely
 upon (except in cases of <a href="#Forward_Declarations">forward
 declaration</a>). If you rely on symbols from <code>bar.h</code>,
@@ -709,8 +703,7 @@ to provide you the symbols of <code>bar.h</code>.  However, any
 includes present in the related header do not need to be included
 again in the related <code>cc</code> (i.e., <code>foo.cc</code> can
 rely on <code>foo.h</code>'s includes).</p>
--->
-<p>依存しているシンボルを定義するヘッダはすべてインクルードするべきです
+<p class="ja">依存しているシンボルを定義するヘッダはすべてインクルードするべきです
 (<a href="#Forward_Declarations">前方宣言</a>のケースを除きます)。
 もし<code>bar.h</code>のシンボルに依存するのであれば、
 <code>bar.h</code>をインクルードする
@@ -722,18 +715,19 @@ rely on <code>foo.h</code>'s includes).</p>
 関連する<code>cc</code>の中で再びインクルードする必要はありません
 (例えば、<code>foo.cc</code>は<code>foo.h</code>
 のインクルードに頼って構いません)。</p>
+</div>
 
-<!--
+<div class="para">
 <p>For example, the includes in
 
 <code>google-awesome-project/src/foo/internal/fooserver.cc</code>
 might look like this:</p>
--->
-<p>例えば、
+<p class="ja">例えば、
 
 <code>google-awesome-project/src/foo/internal/fooserver.cc</code>
 
 の中のインクルードは次のようになります。</p>
+</div>
 
 <pre>#include "foo/server/fooserver.h"
 
@@ -747,18 +741,18 @@ might look like this:</p>
 #include "foo/server/bar.h"
 </pre>
 
-<!--
+<div class="para">
 <p class="exception">Sometimes, system-specific code needs
 conditional includes. Such code can put conditional
 includes after other includes. Of course, keep your
 system-specific code small and localized. Example:</p>
--->
-<p class="exception">ときどき、
+<p class="exception ja">ときどき、
 システム依存のコードは条件付きでインクルードする必要があります。
 そのようなコードは、
 他のインクルードの後に条件付きのインクルードを置いてください。
 もちろん、システム依存のコードは小さく局所的になるようにしましょう。
 </p>
+</div>
 
 <pre>#include "foo/public/fooserver.h"
 
