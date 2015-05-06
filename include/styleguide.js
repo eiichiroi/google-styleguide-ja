@@ -281,6 +281,7 @@ function LinkifyHeaders() {
 function ChangeDisplayModeToNormal() {
   var paraElements = document.getElementsByClassName('para');
   for (var i = 0; i < paraElements.length; i++) {
+    paraElements[i].style.display = 'block';
     var paraChildren = paraElements[i].children;
     for (var j = 0; j < paraChildren.length; j++) {
       if (paraChildren[j].className == 'ja') {
@@ -297,6 +298,7 @@ function ChangeDisplayModeToNormal() {
 function ChangeDisplayModeToParallel() {
   var paraElements = document.getElementsByClassName('para');
   for (var i = 0; i < paraElements.length; i++) {
+    paraElements[i].style.display = 'table';
     var paraChildren = paraElements[i].children;
     for (var j = 0; j < paraChildren.length; j++) {
       paraChildren[j].style.display = 'table-cell';
