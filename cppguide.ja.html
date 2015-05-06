@@ -1508,58 +1508,58 @@ function argument, or return statement. For example:</p>
 <h3 id="Copyable_Movable_Types">コピー可能とムーブ可能な型</h3>
 <a id="Copy_Constructors"></a>
 <div class="summary">
-<!--
+<div class="para">
 <p>Support copying and/or moving if it makes sense for your type.
 Otherwise, disable the implicitly generated special
 functions that perform copies and moves.</p>
-</div>
--->
-<p>コピーやムーブがあなたの型にとって意味があるならサポートしてください。
+<p class="ja">コピーやムーブがあなたの型にとって意味があるならサポートしてください。
 そうでないのなら、
 暗黙的に生成される特別なコピーやムーブを実行する関数を無効化してください。</p>
+</div>
+</div>
 
 <div class="stylebody">
 
 <div class="definition">
-<!--
+<div class="para">
 <p>A copyable type allows its objects to be initialized or assigned
 from any other object of the same type, without changing the value of the source.
 For user-defined types, the copy behavior is defined by the copy
 constructor and the copy-assignment operator.
 <code>string</code> is an example of a copyable type.</p>
--->
-<p>コピー可能な型は、オブジェクト自身が、コピー元の値を変更することなく、
+<p class="ja">コピー可能な型は、オブジェクト自身が、コピー元の値を変更することなく、
 同じ型をもつ他のどのオブジェクトからでも初期化や代入されることを許可します。
 ユーザ定義型に対しては、
 コピーの振る舞いはコピーコンストラクタとコピー代入演算子で定義されます。
 <code>string</code>はコピー可能な型の例です。</p>
+</div>
 
-<!--
+<div class="para">
 <p>A movable type is one that can be initialized and assigned
 from temporaries (all copyable types are therefore movable).
 <code>std::unique_ptr&lt;int&gt;</code> is an example of a movable but not
 copyable type. For user-defined types, the move behavior is defined by the move
 constructor and the move-assignment operator.</p>
--->
-<p>ムーブ可能な型は、一時オブジェクトからの初期化や代入が可能です。
+<p class="ja">ムーブ可能な型は、一時オブジェクトからの初期化や代入が可能です。
 (したがって、すべてのコピー可能な型はムーブ可能です)。
 <code>std::unique_ptr&lt;int&gt;</code>はムーブ可能ですが、
 コピー可能でない型の例です。
 ユーザ定義型に対しては、
 ムーブの振る舞いはムーブコンストラクタとムーブ代入演算子で定義されます。
 </p>
+</div>
 
-<!--
+<div class="para">
 <p>The copy/move constructors can be implicitly invoked by the compiler
 in some situations, e.g. when passing objects by value.</p>
--->
-<p>コピー/ムーブコンストラクタは、
+<p class="ja">コピー/ムーブコンストラクタは、
 ある状況ではコンパイラによって暗黙的に実行されます。
 例えば、オブジェクトを値渡しするときです。</p>
 </div>
+</div>
 
 <div class="pros">
-<!--
+<div class="para">
 <p>Objects of copyable and movable types can be passed and returned
 by value, which makes APIs simpler, safer, and more general.
 Unlike when passing pointers or references, there's no risk of
@@ -1569,8 +1569,7 @@ prevents non-local interactions between the client and the
 implementation, which makes them easier to understand and
 maintain. Such objects can be used with generic
 APIs that require pass-by-value, such as most containers.</p>
--->
-<p>コピー可能でムーブ可能な型のオブジェクトは、
+<p class="ja">コピー可能でムーブ可能な型のオブジェクトは、
 値で渡したり戻すことができます。これによって、
 APIは、より簡潔に、より安全に、より汎用的になります。
 ポインタや参照で渡したときとは違って、
@@ -1580,8 +1579,9 @@ APIは、より簡潔に、より安全に、より汎用的になります。
 それらを理解し保守することを簡単にします。
 そのようなオブジェクトは、多くのコンテナのように、
 値渡しを要求する汎用的なAPIとして使われます。</p>
+</div>
 
-<!--
+<div class="para">
 <p>Copy/move constructors and assignment operators are usually
 easier to define correctly than alternatives
 like <code>Clone()</code>, <code>CopyFrom()</code> or <code>Swap()</code>,
@@ -1594,8 +1594,7 @@ steps, and they're eligible for optimizations such as
 
 <a href="http://en.cppreference.com/w/cpp/language/copy_elision">
 copy elision</a>.</p>
--->
-<p>コピー/ムーブコンストラクタとコピー/ムーブ代入演算子は、一般に、
+<p class="ja">コピー/ムーブコンストラクタとコピー/ムーブ代入演算子は、一般に、
 <code>Clone()</code>、<code>CopyFrom()</code>、<code>Swap()</code>
 のような選択肢に比べて、正しく定義することが簡単です。
 なぜなら、暗黙的に、もしくは、<code>= default</code>
@@ -1606,19 +1605,20 @@ copy elision</a>.</p>
 初期化と代入のステップを分離しないため、
 <a href="http://ja.cppreference.com/w/cpp/language/copy_elision">コピーの省略
 </a>のような最適化にとって望ましいからです。</p>
+</div>
 
-<!--
+<div class="para">
 <p>Move operations allow the implicit and efficient transfer of
 resources out of rvalue objects. This allows a plainer coding style
 in some cases.</p>
--->
-<p>ムーブ操作は、
+<p class="ja">ムーブ操作は、
 右辺値オブジェクトからのリソース移動を暗黙的に効率化できます。
 これはいくつかのケースではわかりやすいコーディングスタイルになります。</p>
 </div>
+</div>
 
 <div class="cons">
-<!--
+<div class="para">
 <p>Many types do not need to be copyable, and providing copy
 operations for them can be confusing, nonsensical, or outright
 incorrect. Copy/assigment operations for base class types are
@@ -1627,33 +1627,33 @@ hazardous, because use of them can lead to
 slicing</a>. Defaulted or carelessly-implemented copy operations
 can be incorrect, and the resulting bugs can be confusing and
 difficult to diagnose.</p>
--->
-<p>多くの型はコピー可能である必要はなく、コピー操作を提供することは、
+<p class="ja">多くの型はコピー可能である必要はなく、コピー操作を提供することは、
 混乱しやすい、本質でない、あるいは、完全に間違っているかもしれません。
 基底クラスに対するコピー/代入操作は危険です。なぜなら、それらを使うと
 <a href="http://en.wikipedia.org/wiki/Object_slicing">オブジェクトのスライシング
 </a>につながります。デフォルトで生成された、もしくは、
 注意深く実装されたコピー操作が間違っていると、
 結果として生じたバグは混乱しやすく原因究明が難しいかもしれません。</p>
+</div>
 
-<!--
+<div class="para">
 <p>Copy constructors are invoked implicitly, which makes the
 invocation easy to miss. This may cause confusion, particularly
 for programmers used to languages where pass-by-reference is
 conventional or mandatory. It may also encourage excessive
 copying, which can cause performance problems.</p>
--->
-<p>コピーコンストラクタが暗黙的に呼び出されることは、
+<p class="ja">コピーコンストラクタが暗黙的に呼び出されることは、
 コピーコンストラクタの呼び出しを間違えやすくなります。これは、
 特に参照渡しが規約か必須の言語をよく使っていたプログラマにとっては、
 混乱をまねくかもしれません。また、それは余計なコピーを助長して、
 性能問題を引き起こすかもしれません。</p>
+</div>
 
 </div>
 
 <div class="decision">
 
-<!--
+<div class="para">
 <p>Make your type copyable/movable if it will be useful, and if it
 makes sense in the context of the rest of the API.
 As a rule of thumb, if the behavior (including computational
@@ -1666,8 +1666,7 @@ If your type is not copyable, but the correctness of a move is obvious
 to users of the type and its fields support it, you may make the type
 move-only by defining both of the move operations.
 </p>
--->
-<p>あなたの型にとって有益で、かつ、APIの残りの文脈で意味をなすのであれば、
+<p class="ja">あなたの型にとって有益で、かつ、APIの残りの文脈で意味をなすのであれば、
 コピー可能/ムーブ可能にしてください。
 大雑把に言うと、計算量の複雑さを含めたコピーの振る舞いが、
 ユーザにとって直ちに明らかでないのであれば、コピー可能にするべきではありません。
@@ -1677,23 +1676,24 @@ move-only by defining both of the move operations.
 両方のムーブ操作(コンストラクタと代入)を定義してください。
 もし、コピー可能ではないが、
 ムーブの正しさがユーザとサポートする範囲が明らかであるならば、
-両方のムーブ操作を定義することによってムーブだけ可能な型にしてもよい。</p>
+両方のムーブ操作を定義することによってムーブだけ可能な型にしてもかまいません。</p>
+</div>
 
-<!--
+<div class="para">
 <p>Prefer to define copy and move operations with <code>= default</code>.
 Defining non-default move operations currently requires a style
 exception. Remember to review the correctness of any defaulted
 operations as you would any other code.
 </p>
--->
-<p><code>= default</code>
+<p class="ja"><code>= default</code>
 を使ってコピーとムーブ操作を定義することを優先してください。
 デフォルトでないムーブ操作を定義することは、いまのところ、
 スタイルの例外を要求します。
 あなたがその他のコードでやりたいことと同様に、
 デフォルト定義の操作の正しさを確認するべきであることを覚えておいてください。</p>
+</div>
 
-<!--
+<div class="para">
 <p>Due to the risk of slicing, avoid providing an assignment
 operator or public copy/move constructor for a class that's
 intended to be derived from (and avoid deriving from a class
@@ -1701,29 +1701,30 @@ with such members). If your base class needs to be
 copyable, provide a public virtual <code>Clone()</code>
 method, and a protected copy constructor that derived classes
 can use to implement it.</p>
--->
-<p>スライシングのリスクのため、派生されることを意図したクラスに対して、
+<p class="ja">スライシングのリスクのため、派生されることを意図したクラスに対して、
 代入演算子やパブリックなコピー/ムーブコンストラクタを提供することは避けてください。
 (また、そのようなメンバを持つクラスから派生することは避けてください。)
 もし親クラスをコピー可能にする必要があるのであれば、
 パブリックな仮想メソッド<code>Clone()</code>と、
 派生クラスがそれを実装するために使えるように
 プロテクテッドなコピーコンストラクタを提供してください。</p>
+</div>
 
-<!--
+<div class="para">
 <p>If you do not want to support copy/move operations on
 your type, explicitly disable them using <code>= delete</code> or
 whatever
 other mechanism your project uses.
 
 </p>
--->
-<p>もしコピー/ムーブ操作をサポートしたくないのであれば、
+<p class="ja">もしコピー/ムーブ操作をサポートしたくないのであれば、
 <code>= delete</code>を使うか、
 あなたのプロジェクトで使っている機構でも何でも使って、
 明示的に無効化してください。
-</p></div> 
+</p>
+</div>
 </div> 
+</div>
 
 <h3 id="Delegating_and_inheriting_constructors">Delegating and Inheriting Constructors</h3>
 
