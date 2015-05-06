@@ -765,43 +765,71 @@ system-specific code small and localized. Example:</p>
 
 </div> 
 
-<h2 id="Scoping">Scoping</h2>
+<h2 id="Scoping">スコープ</h2>
 
-<h3 id="Namespaces">Namespaces</h3>
+<h3 id="Namespaces">名前空間</h3>
 
 <div class="summary">
+<div class="para">
 <p>Unnamed namespaces in <code>.cc</code> files are
 encouraged. With named namespaces, choose the name based on
 the 
 project, and possibly its
 path. Do not use a <i>using-directive</i>.
 Do not use inline namespaces.</p>
+<p class="ja"><code>.cc</code>ファイル中の無名名前空間は推奨されています。
+名前つき名前空間はプロジェクトに基づいた名前を選び、できる限りそのパスにしてください。
+<i>usingディレクティブ</i>は使ってはいけません。インライン名前空間も使ってはいけません。
+</p>
+</div>
 </div>
 
 <div class="stylebody">
 
 <div class="definition">
+<div class="para">
 <p>Namespaces subdivide the global scope
 into distinct, named scopes, and so are useful for preventing
 name collisions in the global scope.</p>
+<p class="ja">名前空間はグローバルなスコープを別々の名前つきスコープに細分化して、
+グローバルスコープ中での名前衝突を防ぐのに役に立ちます。</p>
+</div>
+</div>
 </div>
 
 <div class="pros">
 
+<div class="para">
 <p>Namespaces provide a (hierarchical) axis of naming, in
 addition to the (also hierarchical) name axis provided by
 classes.</p>
+<p class="ja">クラスによって提供される(階層的な)名前の軸に加えて、
+名前空間は(階層的な)名前の軸を提供します。</p>
+</div>
 
+<div class="para">
 <p>For example, if two different projects have a class
 <code>Foo</code> in the global scope, these symbols may
 collide at compile time or at runtime. If each project
 places their code in a namespace,
 <code>project1::Foo</code> and <code>project2::Foo</code>
 are now distinct symbols that do not collide.</p>
+<p class="ja">例えば、
+もし二つの異なるプロジェクトがグローバルスコープにクラス
+<code>Foo</code>を持っているのであれば、
+それらのシンボルはコンパイル時か実行時に衝突するかもしれません。
+もし各プロジェクトがそれらのコードを名前空間の中に入れていれば、
+<code>project1::Foo</code>と<code>project2::Foo</code>は異なるシンボルであり、
+それらは衝突しない。</p>
+</div>
 
+<div class="para">
 <p>Inline namespaces automatically place their names in
 the enclosing scope. Consider the following snippet, for
 example:</p>
+<p class="ja">インライン名前空間は包まれたスコープに名前を自動的に置きます。
+例えば、次のスニペットを考えてみましょう。</p>
+</div>
 
 <pre>namespace X {
 inline namespace Y {
@@ -810,34 +838,57 @@ inline namespace Y {
 }
 </pre>
 
+<div class="para">
 <p>The expressions <code>X::Y::foo()</code> and
 <code>X::foo()</code> are interchangeable. Inline
 namespaces are primarily intended for ABI compatibility
 across versions.</p>
+<p class="ja">式<code>X::Y::foo()</code>と<code>X::foo()</code>
+はお互いに交換可能です。
+インライン名前空間は複数バージョンを横断したABI互換性のために主に使われます。</p>
+</div>
 </div>
 
 <div class="cons">
 
+<div class="para">
 <p>Namespaces can be confusing, because they provide an
 additional (hierarchical) axis of naming, in addition to
 the (also hierarchical) name axis provided by
 classes.</p>
+<p class="ja">名前空間は混乱しやすいかもしれません。
+なぜならば、クラスで提供される(階層的な)名前の軸に加えて、
+(階層的な)名前の軸を追加で提供するからです。</p>
+</div>
 
+<div class="para">
 <p>Inline namespaces, in particular, can be confusing
 because names aren't actually restricted to the namespace
 where they are declared. They are only useful as part of
 some larger versioning policy.</p>
+<p class="ja">インライン名前空間は、特に混乱しやすいかもしれません。
+なぜならば、名前が宣言された名前空間に実際には制限されないからです。
+より大きなバージョニングポリシーの一部分としてのみ役に立つでしょう。</p>
+</div>
 
+<div class="para">
 <p>Use of unnamed namespaces in header files can easily
 cause violations of the C++ One Definition Rule
 (ODR).</p>
+<p class="ja">ヘッダファイル中での無名名前空間を使用はC++の単一定義規則(ODR)
+の違反を簡単に引き起こすでしょう。</p>
+</div>
 </div>
 
 <div class="decision">
 
+<div class="para">
 <p>Use namespaces according to the policy described
 below. Terminate namespaces with comments as shown in the
 given examples.</p>
+<p class="ja">以下に記述したポリシーにしたがって名前空間を使いましょう。
+例の中で示されているように、名前空間をコメントとともに終了してください。</p>
+</div>
 </div>
 
 <h4 class="stylepoint_subsection">Unnamed Namespaces</h4>
