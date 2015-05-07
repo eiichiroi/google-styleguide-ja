@@ -887,12 +887,13 @@ cause violations of the C++ One Definition Rule
 below. Terminate namespaces with comments as shown in the
 given examples.</p>
 <p class="ja">以下に記述したポリシーにしたがって名前空間を使いましょう。
-例の中で示されているように、名前空間をコメントとともに終了してください。</p>
+例の中で示されているように、名前空間をコメントとともに終えるようにしてください。</p>
 </div>
 </div>
 
-<h4 class="stylepoint_subsection">Unnamed Namespaces</h4>
+<h4 class="stylepoint_subsection">無名名前空間</h4>
 
+<div class="para">
 <ul>
   <li>
   <p>Unnamed namespaces are allowed and even encouraged
@@ -923,11 +924,44 @@ bool UpdateInternals(Frobber* f, int newval) {
   <li>Do not use unnamed namespaces in <code>.h</code>
   files.</li>
 </ul>
+<ul class="ja">
+  <li>
+  <p>リンク時の名前衝突を避けるために、<code>.cc</code>ファイルの中では
+    無名名前空間は使っても構いませんし推奨されてさえいます。</p>
 
-<h4 class="stylepoint_subsection">Named Namespaces</h4>
+<pre>namespace {                           // .ccファイルの中です
 
+// 無名名前空間の中身はインデントされません。
+//
+// この関数は、この.ccファイルの中からしか呼び出せませんし、
+// リンク時に他のシンボルと衝突するようなシンボルを生成しないことが
+// 保証されてます。
+bool UpdateInternals(Frobber* f, int newval) {
+  ...
+}
+
+}  // namespace
+</pre>
+
+  <p>しかしながら、
+    ある特定のクラスに対応するファイルスコープでの宣言は、
+    無名名前空間のメンバとしてよりも、
+    そのクラス中のメンバ(型や静的データメンバ、静的メンバ関数)
+    として宣言されるかもしれません。</p>
+  </li>
+
+  <li><code>.h</code>ファイルの中で無名名前空間を使ってはいけません。</li>
+</ul>
+</div>
+
+<h4 class="stylepoint_subsection">名前つき名前空間</h4>
+
+<div class="para">
 <p>Named namespaces should be used as follows:</p>
+<p class="ja">名前つき名前空間は次のように使ってください。</p>
+</div>
 
+<div class="para">
 <ul>
   <li>
   <p>Namespaces wrap the entire source file after
@@ -1042,7 +1076,121 @@ inline void my_inline_function() {
 
   <li>Do not use inline namespaces.</li>
 </ul>
+<ul class="ja">
+  <li>
+  <p>名前空間は、インクルード、
+  <a href="http://google-gflags.googlecode.com/">gflags</a>の定義/宣言、
+  他の名前空間にあるクラスの前方宣言の後ろのソースファイル全体を包みます。
+  </p>
 
+<pre>// .hファイル
+namespace mynamespace {
+
+// すべての宣言を名前空間のスコープの中に入れます。
+// インデントがないことに注意してください。
+class MyClass {
+ public:
+  ...
+  void Foo();
+};
+
+}  // namespace mynamespace
+</pre>
+
+<pre>// .ccファイル
+namespace mynamespace {
+
+// 関数の定義は名前空間のスコープの中に入れます。
+void MyClass::Foo() {
+  ...
+}
+
+}  // namespace mynamespace
+</pre>
+
+  <p>典型的な<code>.cc</code>ファイルはより複雑で、
+    他の名前空間にあるクラスを参照する必要があるかもしれません。</p>
+
+
+<pre>#include "a.h"
+
+DEFINE_bool(someflag, false, "dummy flag");
+
+class C;  // グローバル空間の中でクラスCの前方宣言
+namespace a { class A; }  // a::Aの前方宣言
+
+namespace b {
+
+...code for b...         // 左側の余白に沿ってコードを書く。
+
+}  // namespace b
+</pre>
+  </li>
+
+
+
+  <li><code>std</code>名前空間の中で何かを宣言してはいけません。
+    たとえ標準ライブラリのクラスの前方宣言であったとしても同様です。
+    <code>std</code>名前空間に何かを宣言することは未定義の振舞い、
+    すなわち、移植性がありません。
+    標準ライブラリから何かを宣言するためには、
+    適切なヘッダファイルをインクルードしてください。</li>
+
+  <li><p><i>usingディレクティブ</i>
+      はある名前空間からすべての名前を利用可能にするため使ってはいけません。</p>
+
+<pre class="badcode">// 禁止 -- これは名前空間を汚染します
+using namespace foo;
+</pre>
+  </li>
+
+  <li><p><i>using宣言</i>は、
+      <code>.cc</code>ファイルの中のどこでもと、
+      <code>.h</code>ファイルの中の関数、メソッド、クラスの中で
+      使っても構いません。</p>
+
+<pre>// .ccファイルの中はどこでもOKです
+// .hファイルの中は関数かメソッド、クラスの中でないといけません
+using ::foo::bar;
+</pre>
+  </li>
+
+  <li><p>名前空間の別名は、
+      <code>.cc</code>ファイルの中のどこでもと、
+      <code>.h</code>ファイル全体を包んでいる名前つき名前空間の中のどこでも、
+    関数とメソッドの中で、使っても構いません。</p>
+
+<pre>// .ccファイルの中でよく使われる名前を短く利用
+namespace fbz = ::foo::bar::baz;
+
+// .hファイルの中でよく使われる名前を短く利用
+namespace librarian {
+// 次の別名はこのヘッダファイル(librarian名前空間の中)を
+// インクルードするすべてのファイルで利用可能です。
+// したがって、別名はプロジェクト内で矛盾なく選ぶべきです。
+namespace pd_s = ::pipeline_diagnostics::sidetable;
+
+inline void my_inline_function() {
+  // 関数やメソッド内の名前空間の別名
+  namespace fbz = ::foo::bar::baz;
+  ...
+}
+}  // namespace librarian
+</pre>
+
+  <p><code>.h</code>ファイルの中での別名は、
+    そのファイルをインクルードしたすべての場所で
+    見えるようになることに注意してください。
+    したがって、
+    パブリックなAPIをできるだけ小さく保つという一般的な目標の一環として、
+    パブリックなヘッダ(そのプロジェクトの外で利用可能なもの)と、
+    それらによって推移的にインクルードされるヘッダは、
+    別名を定義することを避けるべきです。</p>
+  </li>
+
+  <li>インライン名前空間は使ってはいけません。</li>
+</ul>
+</div>
  
 
  
