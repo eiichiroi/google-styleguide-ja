@@ -1198,21 +1198,32 @@ inline void my_inline_function() {
  
 </div> 
 
-<h3 id="Nested_Classes">Nested Classes</h3>
+<h3 id="Nested_Classes">ネストされたクラス</h3>
 
 <div class="summary">
+<div class="para">
 <p>Although you may use public nested classes when they are
 part of an interface, consider a <a href="#Namespaces">namespace</a>
 to keep declarations out of the global scope.</p>
+<p class="ja">
+パブリックなネストされたクラスをインタフェースの一部として使っているかもしれませんが、
+グローバルスコープの外に宣言を置くために
+<a href="#Namespaces">名前空間</a>を検討してください。</p>
+</div>
 </div>
 
 <div class="stylebody">
 
 <div class="definition">
+<div class="para">
 <p>A class can define another class within it; this is also
 called a <i>member class</i>.</p>
+<p class="ja">クラスはその他のクラスの中に定義することもできます。
+これは<i>メンバクラス</i>とも呼ばれます。</p>
+</div>
 
 
+<div class="para">
 <pre>class Foo {
 
  private:
@@ -1223,9 +1234,21 @@ called a <i>member class</i>.</p>
 
 };
 </pre>
+<pre class="ja">class Foo {
+
+ private:
+  // Barはメンバクラスで、Fooの中にネストされています。
+  class Bar {
+    ...
+  };
+
+};
+</pre>
+</div>
 </div>
 
 <div class="pros">
+<div class="para">
 <p>This is useful when the nested (or member) class is only
 used by the enclosing class; making it a member puts it
 in the enclosing class scope rather than polluting the
@@ -1235,20 +1258,40 @@ defined in the <code>.cc</code> file to avoid including
 the nested class definition in the enclosing class
 declaration, since the nested class definition is usually
 only relevant to the implementation.</p>
+<p>ネストされたクラス(か、メンバクラス)が
+包んでいるクラスの中でのみ使われるときに役に立ちます。
+メンバにすることでクラス名で外側のスコープを汚染するのではなく、
+包んでいるクラスのスコープに限定することができます。
+ネストされたクラスの定義は通常実装にしか関連がないので、
+包んでいるクラスの中でネストされたクラスを定義することを避けるために、
+ネストされたクラスは包んでいるクラスの中で前方宣言して
+<code>.cc</code>ファイルの中で定義されるかもしれません。</p>
+</div>
 </div>
 
 <div class="cons">
+<div class="para">
 <p>Nested classes can be forward-declared only within the
 definition of the enclosing class. Thus, any header file
 manipulating a <code>Foo::Bar*</code> pointer will have
 to include the full class declaration for
 <code>Foo</code>.</p>
+<p class="ja">ネストされたクラスは包んでいるクラスの定義の中でしか
+前方宣言することができません。したがって、
+<code>Foo::Bar*</code>ポインタを操作する任意のヘッダファイルは、
+クラス<code>Foo</code>の完全な定義をインクルードしなければならないでしょう。</p>
+</div>
 </div>
 
 <div class="decision">
+<div class="para">
 <p>Do not make nested classes public unless they are
 actually part of the interface, e.g., a class that holds a
 set of options for some method. </p>
+<p class="ja">実際にインタフェースの一部分である場合
+(例えば、いくつかのメソッドのためのオプションの集合をもつクラス)を除いて、
+ネストされたクラスをパブリックにしてはいけません。</p>
+</div>
 </div>
 
 </div> 
