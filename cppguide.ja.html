@@ -1296,29 +1296,43 @@ set of options for some method. </p>
 
 </div> 
 
-<h3 id="Nonmember,_Static_Member,_and_Global_Functions">Nonmember, Static Member, and Global Functions</h3>
+<h3 id="Nonmember,_Static_Member,_and_Global_Functions">非メンバと静的メンバとグローバル関数</h3>
 
 <div class="summary">
+<div class="para">
 <p>Prefer nonmember functions within a namespace or static
 member functions to global functions; use completely global
 functions rarely.</p>
+<p class="ja">
+グローバル関数よりも名前空間に入った非メンバ関数か静的メンバ関数を優先してください。
+完全なグローバル関数を使うことはまれです。</p>
+</div>
 </div>
 
  <div class="stylebody">
 
  <div class="pros">
+ <div class="para">
  <p>Nonmember and static member functions can be useful in
  some situations. Putting nonmember functions in a
  namespace avoids polluting the global namespace.</p>
+ <p class="ja">
+   非メンバ関数と静的メンバ関数はいくつかの状況で役立ちます。
+   非メンバ関数を名前空間に入れることでグローバル名前空間を汚染することを避けることができます。</p>
  </div>
 
 <div class="cons">
+<div class="para">
 <p>Nonmember and static member functions may make more sense
 as members of a new class, especially if they access
 external resources or have significant dependencies.</p>
+<p class="ja">特に、外部リソースにアクセスしたり重要な依存関係を持っているような場合には、
+非メンバ関数と静的メンバ関数は新しいクラスのメンバとした方がよいかもしれません。</p>
+</div>
 </div>
 
 <div class="decision">
+<div class="para">
 <p>Sometimes it is useful, or even necessary, to define a
 function not bound to a class instance. Such a function
 can be either a static member or a nonmember function.
@@ -1327,7 +1341,18 @@ variables, and should nearly always exist in a namespace.
 Rather than creating classes only to group static member
 functions which do not share static data, use
 <a href="#Namespaces">namespaces</a> instead.</p>
+<p class="ja">
+あるクラスのインスタンスに限らず関数を定義することは、
+ときどき役に立ちますし、必要であることさえあります。
+その関数は静的メンバ関数か非メンバ関数のどちらかかもしれません。
+非メンバ関数は外部変数に依存するべきではありませんし、
+ほぼ常に名前空間の中にあるべきです。
+静的なデータを共有しない静的メンバ関数をまとめるためだけにクラスを作りよりも、
+<a href="#Namespaces">名前空間</a>を代わりに使ってください。
+</p>
+</div>
 
+<div class="para">
 <p>Functions defined in the same compilation unit as
 production classes may introduce unnecessary coupling and
 link-time dependencies when directly called from other
@@ -1335,12 +1360,26 @@ compilation units; static member functions are
 particularly susceptible to this. Consider extracting a
 new class, or placing the functions in a namespace
 possibly in a separate library.</p>
+<p class="ja">
+同じ翻訳単位の中で製品用のクラスとして定義された関数は、
+他の翻訳単位から直接呼ばれたときに、
+不要な結合とリンク時の依存関係をもちこむかもしれません。
+静的メンバ関数はこれを部分的に受け入れます。
+新しいクラスに抽出する、もしくは、
+その関数を名前空間か可能であれば分離したライブラリの中に置くことを検討してください。</p>
+</div>
 
+<div class="para">
 <p>If you must define a nonmember function and it is only
 needed in its <code>.cc</code> file, use an unnamed
 <a href="#Namespaces">namespace</a> or
 <code>static</code> linkage (eg <code>static int Foo()
 {...}</code>) to limit its scope.</p>
+<p class="ja">
+<code>.cc</code>ファイルの中でだけ必要な非メンバ関数を定義しなければならないのであれば、
+無名<a href="#Namespaces">名前空間</a>を使うか、
+範囲がそのスコープに限定される<code>static</code>リンケージ
+(例: <code>static int Foo() {...}</code>)を使ってください。</p>
 </div>
 
 </div> 
