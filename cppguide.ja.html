@@ -1384,15 +1384,20 @@ needed in its <code>.cc</code> file, use an unnamed
 
 </div> 
 
-<h3 id="Local_Variables">Local Variables</h3>
+<h3 id="Local_Variables">ローカル変数</h3>
 
 <div class="summary">
+<div class="para">
 <p>Place a function's variables in the narrowest scope
 possible, and initialize variables in the declaration.</p>
+<p class="ja">関数の変数は可能な限り狭いスコープの中において、
+宣言と同時に初期化してください。</p>
+</div>
 </div>
 
 <div class="stylebody">
 
+<div class="para">
 <p>C++ allows you to declare variables anywhere in a
 function. We encourage you to declare them in as local a
 scope as possible, and as close to the first use as
@@ -1400,50 +1405,106 @@ possible. This makes it easier for the reader to find the
 declaration and see what type the variable is and what it
 was initialized to. In particular, initialization should
 be used instead of declaration and assignment, e.g.:</p>
+<p class="ja">C++では関数の中のどこでも変数を宣言することができます。
+できる限りローカルなスコープで、そして、
+できる限り最初に使う場所の近くで変数を宣言することを推奨します。
+これよって読み手が宣言を見つけやすく、その変数の型が何であるか、
+何で初期化されたかが分かりやすくなります。
+特に、初期化は宣言と代入の代わりに使われるべきです。例えば、</p>
+</div>
 
+<div class="para">
 <pre class="badcode">int i;
 i = f();      // Bad -- initialization separate from declaration.
 </pre>
+<pre class="badcode ja">int i;
+i = f();      // 悪い -- 初期化が宣言と分離しています。
+</pre>
+</div>
 
+<div class="para">
 <pre>int j = g();  // Good -- declaration has initialization.
 </pre>
+<pre class="ja">int j = g();  // 良い -- 宣言と同時に初期化しています。
+</pre>
+</div>
 
+<div class="para">
 <pre class="badcode">vector&lt;int&gt; v;
 v.push_back(1);  // Prefer initializing using brace initialization.
 v.push_back(2);
 </pre>
+<pre class="badcode ja">vector&lt;int&gt; v;
+v.push_back(1);  // ブレース初期化による初期化を優先してください。
+v.push_back(2);
+</pre>
+</div>
 
+<div class="para">
 <pre>vector&lt;int&gt; v = {1, 2};  // Good -- v starts initialized.
 </pre>
+<pre class="ja">vector&lt;int&gt; v = {1, 2};  // 良い -- vは初期化で始まっています。
+</pre>
+</div>
 
+<div class="para">
 <p>Variables needed for <code>if</code>, <code>while</code>
 and <code>for</code> statements should normally be declared
 within those statements, so that such variables are confined
 to those scopes.  E.g.:</p>
+<p class="ja"><code>if</code>や<code>while</code>、
+<code>for</code>文に必要な変数は通常は文の中で宣言されるべきであり、
+そのような変数はそれらのスコープに閉じ込められます。例えば、</p>
+</div>
 
 <pre>while (const char* p = strchr(str, '/')) str = p + 1;
 </pre>
 
+<div class="para">
 <p>There is one caveat: if the variable is an object, its
 constructor is invoked every time it enters scope and is
 created, and its destructor is invoked every time it goes
 out of scope.</p>
+<p class="ja">
+注意が一つあります。もしその変数がオブジェクトならば、
+そのコンストラクタはそのスコープに入る度に実行され、作成され、
+スコープの外に出る度にそのデストラクタが実行されます。</p>
+</div>
 
+<div class="para">
 <pre class="badcode">// Inefficient implementation:
 for (int i = 0; i &lt; 1000000; ++i) {
   Foo f;  // My ctor and dtor get called 1000000 times each.
   f.DoSomething(i);
 }
 </pre>
+<pre class="ja">// 効率の悪い実装:
+for (int i = 0; i &lt; 1000000; ++i) {
+  Foo f;  // コンストラクタとデストラクタがそれぞれ1000000回ずつ呼び出されます。
+  f.DoSomething(i);
+}
+</pre>
+</div>
 
+<div class="para">
 <p>It may be more efficient to declare such a variable
 used in a loop outside that loop:</p>
+<p class="ja">ループの中でそのように使われる変数は、
+そのループの外で宣言する方がより効率的かもしれません。</p>
+</div>
 
+<div class="para">
 <pre>Foo f;  // My ctor and dtor get called once each.
 for (int i = 0; i &lt; 1000000; ++i) {
   f.DoSomething(i);
 }
 </pre>
+<pre>Foo f;  // コンストラクタとデストラクタはそれぞれ一度だけ呼び出されます。
+for (int i = 0; i &lt; 1000000; ++i) {
+  f.DoSomething(i);
+}
+</pre>
+</div>
 
 </div> 
 
