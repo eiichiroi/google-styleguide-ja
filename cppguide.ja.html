@@ -1508,24 +1508,38 @@ for (int i = 0; i &lt; 1000000; ++i) {
 
 </div> 
 
-<h3 id="Static_and_Global_Variables">Static and Global Variables</h3>
+<h3 id="Static_and_Global_Variables">静的変数とグローバル変数</h3>
 
 <div class="summary">
+<div class="para">
 <p>Static or global variables of class type are forbidden:
 they cause hard-to-find bugs due to indeterminate order of
 construction and destruction. However, such variables are
 allowed if they are <code>constexpr</code>: they have no
 dynamic initialization or destruction.</p>
+<p class="ja">クラス型の静的変数かグローバル変数は禁止されています。
+それらは初期化と破棄の順序が決まっていないため見つけにくいバグを引き起こします。
+しかしながら、<code>constexpr</code>のような変数は許可されています。
+それらは動的な初期化と破棄をもちません。</p>
+</div>
 </div>
 
 <div class="stylebody">
 
+<div class="para">
 <p>Objects with static storage duration, including global
 variables, static variables, static class member
 variables, and function static variables, must be Plain
 Old Data (POD): only ints, chars, floats, or pointers, or
 arrays/structs of POD.</p>
+<p class="ja">
+グローバル変数、静的変数、静的クラスメンバ変数、
+関数の静的変数を含めた、静的な記憶域期間をもつオブジェクトは、
+Plain Old Data(POD)でなければなりません。
+int、char、float、ポインタ、PODの配列もしくは構造体のみがPODです。</p>
+</div>
 
+<div class="para">
 <p>The order in which class constructors and initializers
 for static variables are called is only partially
 specified in C++ and can even change from build to build,
@@ -1538,7 +1552,17 @@ other globals. (This prohibition does not apply to a static
 variable within function scope, since its initialization
 order is well-defined and does not occur until control
 passes through its declaration.)</p>
+<p class="ja">静的変数として呼び出されたときのクラスのコンストラクタと初期化子の順序は、
+C++では部分的にしか決まっておらず、ビルドごとに変わる可能性さえあります。
+これは見つけにくいバグを引き起こします。
+したがって、クラス型のグローバル変数の禁止に加えて、
+その他のグローバル変数に依存しない関数(getenv()やgetpid()のような関数)でない限り、
+関数の戻り値で初期化する静的なPOD変数も許可しません。
+(初期化の順序がちゃんと定義されていて、その宣言を通過するまで発生しないので、
+この制限は関数スコープ内での静的変数には適用しません。)</p>
+</div>
 
+<div class="para">
 <p>Likewise, global and static variables are destroyed
 when the program terminates, regardless of whether the
 termination is by returning from <code>main()</code> or
@@ -1553,7 +1577,19 @@ might have been destroyed, but code still running
 destructor for a static <code>string</code> variable
 might be run prior to the destructor for another variable
 that contains a reference to that string.</p>
+<p class="ja">同じように、
+プログラムが<code>main()</code>から戻って停止したか
+<code>exit()</code>を呼び出して停止したかのどちらであるかに関係なく、
+グローバル変数と静的変数はプログラムが停止したときに破棄されます。
+デストラクタが呼び出される順序はコンストラクタが呼び出された順序と反対の順序であると定義されています。
+コンストラクタの順序は不定なので、デストラクタの順序も不定です。
+例えば、プログラムの終了時に静的変数が破棄されるかもしれませんが、
+(おそらくその他のスレッドで)まだ実行されているコードはそれにアクセスしようとして失敗します。
+あるいは、静的な<code>string</code>変数のデストラクタは、
+そのstringへの参照をもつその他の変数のデストラクタより優先して実行されるかもしれません。</p>
+</div>
 
+<div class="para">
 <p>One way to alleviate the destructor problem is to
 terminate the program by calling
 <code>quick_exit()</code> instead of <code>exit()</code>.
@@ -1567,14 +1603,32 @@ for example), you can register it using
 needs to run at both <code>exit()</code> and
 <code>quick_exit()</code>, you need to register it in
 both places.)</p>
+<p class="ja">
+このデストラクタ問題を軽減する一つの方法は<code>exit()</code>の代わりに
+<code>quick_exit()</code>を呼び出してプログラムを停止することです。
+その違いは、<code>quick_exit()</code>はデストラクタを実行せず、
+<code>atexit()</code>を呼び出して登録されたハンドラも実行しないということです。
+もし<code>quick_exit()</code>を経由してプログラムを停止するときに
+実行する必要があるハンドラがあるのであれば(例えば、ログのフラッシュ)、
+<code>at_quick_exit()</code>を使って登録することができます。
+(もし<code>exit()</code>と<code>quick_exit()</code>
+の両方で実行する必要があるハンドラがあるのであれば、
+両方で登録する必要があります。)</p>
+</div>
 
+<div class="para">
 <p>As a result we only allow static variables to contain
 POD data. This rule completely disallows
 <code>vector</code> (use C arrays instead), or
 <code>string</code> (use <code>const char []</code>).</p>
+<p class="ja">
+結果として、PODデータを含む静的変数のみを許可します。
+このルールは<code>vector</code>(代わりにCの配列を使う)や
+<code>string</code>(<code>const char []</code>を使う)を完全に禁止します。</p>
+</div>
 
 
-
+<div class="para">
 <p>If you need a static or global
 variable of a class type, consider initializing a pointer
 (which will never be freed), from either your main()
@@ -1582,8 +1636,12 @@ function or from pthread_once(). Note that this must be a
 raw pointer, not a "smart" pointer, since the smart
 pointer's destructor will have the order-of-destructor
 issue that we are trying to avoid.</p>
-
-
+<p class="ja">もしクラス型の静的変数やグローバル変数が必要なのであれば、
+main()関数かpthread_once()関数から、
+(解放されることのない)ポインタを初期化することを検討してください。
+スマートポインタのデストラクタは回避しようとしているデストラクタの実行順序の問題をもつので、
+これはスマートポインタではなく生ポインタでなければならないことに注意してください。</p>
+</div>
 
 
 
