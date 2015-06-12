@@ -1647,35 +1647,56 @@ main()関数かpthread_once()関数から、
 
 </div> 
 
-<h2 id="Classes">Classes</h2>
+<h2 id="Classes">クラス</h2>
 
+<div class="para">
 <p>Classes are the fundamental unit of code in C++. Naturally,
 we use them extensively. This section lists the main dos and
 don'ts you should follow when writing a class.</p>
+<p class="ja">クラスはC++のコードの基本的な単位です。
+もちろん、わたしたちはそれらを広範囲にわたって使います。
+この章では、あなたがクラスを書くときにしたがうべき
+主なべし・べからずを列挙しています。</p>
+</div>
 
-<h3 id="Doing_Work_in_Constructors">Doing Work in Constructors</h3>
+<h3 id="Doing_Work_in_Constructors">コンストラクタで行なう仕事</h3>
 
 <div class="summary">
+<div class="para">
 <p>Avoid doing complex initialization in constructors (in
 particular, initialization that can fail or that requires
 virtual method calls).</p>
+<p class="ja">複雑な初期化をコンストラクタで行なうのは避けましょう。
+(特に、失敗するかもしれない初期化や、仮想関数呼び出しが必要な初期化です。)</p>
+</div>
 </div>
 
 <div class="stylebody">
 
 <div class="definition">
+<div class="para">
 <p>It is possible to perform initialization in the body
 of the constructor.</p>
+<p class="ja">コンストラクタの中で初期化を実行することができます。</p>
+</div>
 </div>
 
 <div class="pros">
+<div class="para">
 <p>Convenience in typing. No need to worry about whether the
 class has been initialized or not.</p>
+<p class="ja">タイピングが楽です。
+クラスが初期化されているかどうかを気にする必要がありません。</p>
+</div>
 </div>
 
 <div class="cons">
+<div class="para">
 <p>The problems with doing work in constructors are:</p>
+<p class="ja">コンストラクタで仕事を行なうときの問題点は次のとおりです。</p>
+</div>
 
+<div class="para">
 <ul>
   <li>There is no easy way for constructors to signal
   errors, short of using exceptions (which are
@@ -1701,15 +1722,43 @@ class has been initialized or not.</p>
   <a href="http://google-gflags.googlecode.com/">gflags</a>
   will not yet have been initialized.</li>
 </ul>
+<ul class="ja">
+  <li>(<a href="#Exceptions">禁止</a>されている)例外を使うことを除いて、
+  コンストラクタからエラーを伝える簡単な方法はありません。</li>
+
+  <li>もしその仕事が失敗したら、
+  初期化コードが失敗したオブジェクトをもつことになり、
+  不定な状態になるかもしれません。  </li>
+
+  <li>もしその仕事が仮想関数を呼び出したとしても、
+  その呼び出しはサブクラスの実装へディスパッチされません。
+  あなたのクラスがいまはサブクラス化されていなかったとしても、
+  そのクラスへの将来の変更がこの問題を静かにもたらすかもしれません。
+  そして、大きな混乱を引き起こします。</li>
+
+  <li>もしだれかがこの型のグローバル変数を作ったら
+  (ルールに反しますが、それでも)、
+  コンストラクタのコードは<code>main()</code>の前に呼び出され、
+  コンストラクタのコードの中の暗黙の仮定を破壊するでしょう。
+  例えば、<a href="http://google-gflags.googlecode.com/">gflags</a>
+  はまだ初期化されていないでしょう。</li>
+</ul>
+</div>
 </div>
 
 
 <div class="decision">
+<div class="para">
 <p>Constructors should never call virtual functions or
 attempt to raise non-fatal failures. If your object requires
 non-trivial initialization, consider using
  a factory function or <code>Init()</code>
 method.</p>
+<p class="ja">コンストラクタは決して仮想関数を呼び出したり、
+致命的でない失敗を起こそうと試みるべきではありません。
+もしオブジェクトが自明でない初期化を必要とするのであれば、
+ファクトリ関数か<code>Init()</code>メソッドを検討してください。</p>
+</div>
 </div>
 
 </div> 
