@@ -1763,9 +1763,10 @@ method.</p>
 
 </div> 
 
-<h3 id="Initialization">Initialization</h3>
+<h3 id="Initialization">初期化</h3>
 
 <div class="summary">
+<div class="para">
 <p>If your class defines member variables, you must provide an
 in-class initializer for every member variable or write a
 constructor (which can be a default constructor). If you do
@@ -1773,11 +1774,21 @@ not declare any constructors yourself then the compiler
 will generate a default constructor for you, which may
 leave some fields uninitialized or initialized to
 inappropriate values.</p>
+<p class="ja">もしクラスでメンバ変数を定義するのであれば、
+各メンバ変数のためにクラス内の初期化子を提供するか、
+コンストラクタを書かなければいけません。
+(それはデフォルトコンストラクタかもしれません)。
+もしコンストラクタを一つも宣言しないのであれば、
+コンパイラはデフォルトコンストラクタを生成してくれるでしょうが、
+いくつかのフィールドが未初期化であるか、
+不適切な値で初期化された状態にするかもしれません。</p>
+</div>
 </div>
 
 <div class="stylebody">
 
 <div class="definition">
+<div class="para">
 <p>The default constructor is called when we
 <code>new</code> a class object with no arguments. It is always
 called when calling <code>new[]</code> (for arrays). In-class
@@ -1785,16 +1796,32 @@ member initialization means declaring a member variable using a
 construction like <code>int count_ = 17;</code> or
 <code>string name_{"abc"};</code>, as opposed to just
 <code>int count_;</code> or <code>string name_;</code>.</p>
+<p class="ja">引数なしでクラスオブジェクトに対して<code>new</code>
+演算子を適用したとき、デフォルトコンストラクタが呼び出されます。
+配列に対して<code>new[]</code>を呼び出すときも常に呼び出されます。
+クラス内メンバ初期化は、
+ただの<code>int count_;</code>や<code>string name_;</code>に対して、
+<code>int count_ = 17;</code>や<code>string name_{"doc"};</code>
+のような構文を使ってメンバ変数を宣言することです。</p>
+</div>
 </div>
 
 <div class="pros">
+<div class="para">
 <p>A user-defined default constructor is used to
 initialize an object if no initializer is provided. It
 can ensure that an object is always in a valid and usable
 state as soon as it's constructed; it can also ensure
 that an object is initially created in an obviously
 "impossible" state, to aid debugging.</p>
+<p class="ja">ユーザ定義のデフォルトコンストラクタは
+初期化子が一つもないときにオブジェクトを初期化するために使われます。
+それは、構築されるとすぐにオブジェクトが常に正しく使える状態であることを保証してくれます。
+また、デバッグを支援するために、
+オブジェクトが明らかに不可能な状態で最初に作られることも保証してくれます。</p>
+</div>
 
+<div class="para">
 <p>In-class member initialization ensures that a member
 variable will be initialized appropriately without having
 to duplicate the initialization code in multiple
@@ -1802,41 +1829,77 @@ constructors. This can reduce bugs where you add a new
 member variable, initialize it in one constructor, and
 forget to put that initialization code in another
 constructor.</p>
+<p class="ja">クラス内メンバ初期化は、
+複数のコンストラクタで初期化コードが重複することなく、
+メンバ変数が適切に初期化されることを保証してくれます。
+これは、新しいメンバ変数を追加して、それを一つのコンストラクタで初期化して、
+その他のコンストラクタに初期化コードを書くのを忘れてしまうようなバグを減らせます。</p>
+</div>
 </div>
 
 <div class="cons">
+<div class="para">
 <p>Explicitly defining a default constructor is extra
 work for you, the code writer.</p>
+<p class="ja">デフォルトコンストラクタを明示的に定義することは
+あなたやコードを書く人にとって余分な仕事です。</p>
+</div>
 
+<div class="para">
 <p>In-class member initialization is potentially
 confusing if a member variable is initialized as part of
 its declaration and also initialized in a constructor,
 since the value in the constructor will override the
 value in the declaration.</p>
+<p class="ja">もしメンバ変数が宣言の一部分として初期化されるとともにコンストラクタでも初期化されるのであれば、
+コンストラクタ内での値が宣言の値で上書きされるので、
+クラス内メンバ初期化はもしかすると混乱します。</p>
+</div>
 </div>
 
 <div class="decision">
+<div class="para">
 <p>Use in-class member initialization for simple
 initializations, especially when a member variable must
 be initialized the same way in more than one
 constructor.</p>
+<p class="ja">
+あるメンバ変数が一つ以上のコンストラクタで同じように初期化されなければいけないときは特に、
+簡単な初期化のためにクラス内メンバ初期化を使ってください。</p>
+</div>
 
+<div class="para">
 <p>If your class defines member variables that aren't
 initialized in-class, and if it has no other
 constructors, you must define a default constructor (one
 that takes no arguments). It should preferably initialize
 the object in such a way that its internal state is
 consistent and valid.</p>
+<p class="ja">もしあなたのクラスがクラス内初期化されないメンバ変数を定義し、
+かつ、コンストラクタが一つもないのであれば、
+(引数のない)デフォルトコンストラクタを定義しなければいけません。
+なるべく内部状態が矛盾なく正しくなるような方法でオブジェクトを初期化するべきです。</p>
+</div>
 
+<div class="para">
 <p>The reason for this is that if you have no other
 constructors and do not define a default constructor, the
 compiler will generate one for you. This compiler
 generated constructor may not initialize your object
 sensibly.</p>
+<p class="ja">
+コンストラクタが一つもなくデフォルトコンストラクタを定義しないのであれば、
+コンパイラが生成してくれることが、その理由です。
+コンパイラが生成したコンストラクタは気の利いた初期化してくれないかもしれません。</p>
+</div>
 
+<div class="para">
 <p>If your class inherits from an existing class but you
 add no new member variables, you are not required to have
 a default constructor. </p>
+<p class="ja">もしクラスが既存のクラスから派生してもメンバ変数を追加しないのであれば、
+デフォルトコンストラクタを提供する必要はありません。</p>
+</div>
 </div>
 
 </div> 
