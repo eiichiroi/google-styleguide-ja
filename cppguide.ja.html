@@ -1904,16 +1904,21 @@ a default constructor. </p>
 
 </div> 
 
-<h3 id="Explicit_Constructors">Explicit Constructors</h3>
+<h3 id="Explicit_Constructors">明示的なコンストラクタ</h3>
 
 <div class="summary">
+<div class="para">
 <p>Use the C++ keyword <code>explicit</code> for constructors
 callable with one argument.</p>
+<p class="ja">1つの引数で呼び出し可能なコンストラクタにはC++のキーワード
+<code>explicit</code>を使いましょう。</p>
+</div>
 </div>
 
 <div class="stylebody">
 
 <div class="definition">
+<div class="para">
 <p> Normally, if a
 constructor can be called with one argument, it can be used as a
 conversion. For instance, if you define
@@ -1926,38 +1931,74 @@ a source of trouble when things get converted and new
 objects created without you meaning them to. Declaring a
 constructor <code>explicit</code> prevents it from being
 invoked implicitly as a conversion.</p>
+<p class="ja">通常、もしあるコンストラクタが1つの引数で呼び出すことができるのであれば、
+それを変換に使うことができます。例えば、もしあなたが<code>Foo::Foo(string name)</code>
+を定義して、<code>Foo</code>を期待する関数に文字列を渡したら、
+あなたのために文字列を<code>Foo</code>に変換するためにそのコンストラクタを呼び出してから
+<code>Foo</code>をあなたの関数に渡すでしょう。
+これは便利ですが、意図せず新しいオブジェクトが作られたり何かが変換されるときにトラブルの元になります。
+<code>explicit</code>をつけてコンストラクタを宣言することで暗黙の変換を避けることができます。</p>
+</div>
+<div class="para">
 <p>In addition to single-parameter constructors, this also
 applies to constructors where every parameter after the
 first has a default value, e.g.,
 <code>Foo::Foo(string name, int id = 42)</code>.</p>
+<p class="ja">単一引数のコンストラクタに加えて、
+これは最初の引数のあとの各引数がデフォルト値をもつコンストラクタにも適用されます。</p>
+</div>
 </div>
 
 <div class="pros">
+<div class="para">
 <p>Avoids undesirable conversions.</p>
+<p class="ja">望ましくない変換を回避します。</p>
+</div>
 </div>
 
 <div class="cons">
+<div class="para">
 <p>None.</p>
+<p class="ja">ありません。</p>
+</div>
 </div>
 
 <div class="decision">
 
+<div class="para">
 <p>We require all constructors that are callable with
 a single argument to be
 explicit. Always put <code>explicit</code> in front of
 such constructors in the class definition:
 <code>explicit Foo(string name);</code></p>
+<p class="ja">単一引数で呼び出し可能なすべてのコンストラクタが明示的であることを求めます。
+クラス定義の中でそのようなコンストラクタの前に<code>explicit</code>を常につけてください。
+<code>explicit Foo(string name);</code></p>
+</div>
 
+<div class="para">
 <p>Copy and move constructors are exceptions: they should not be
 <code>explicit</code>.  Classes that are intended to be transparent
 wrappers around other classes are also exceptions.
 Such exceptions should be clearly marked with
 comments.</p>
+<p class="ja">コピーコンストラクタとムーブコンストラクタは例外です。
+それらは<code>explicit</code>であるべきではありません。
+周辺の他のクラスの透過的なラッパーであることを意図したクラスも例外です。
+そのような例外はコメントに明らかな印をつけるべきです。</p>
+</div>
 
+<div class="para">
 <p>Finally, constructors that take only a
 <code>std::initializer_list</code> may be non-explicit. This permits
 construction of your type from a <a href="#Braced_Initializer_List">braced initializer list</a>, as in an assignment-style initialization,
 function argument, or return statement. For example:</p>
+<p class="ja">最後に、<code>std::initializer_list</code>
+のみを引数にとるコンストラクタは明示的ではないかもしれません。
+これは、代入スタイルでの初期化や、関数の引数、return文として、
+<a href="#Braced_Initializer_List">初期化子リスト</a>からの型を構築を許可します。
+例えば、次のようなものです。</p>
+</div>
 <pre>  MyType m = {1, 2};
   MyType MakeMyType() { return {1, 2}; }
   TakeMyType({1, 2});
