@@ -2228,17 +2228,21 @@ other mechanism your project uses.
 </div> 
 </div>
 
-<h3 id="Delegating_and_inheriting_constructors">Delegating and Inheriting Constructors</h3>
+<h3 id="Delegating_and_inheriting_constructors">コンストラクタの委譲と継承</h3>
 
 <div class="summary">
+<div class="para">
 <p> Use delegating and inheriting
 constructors when they reduce code duplication.</p>
+<p class="ja">コンストラクタのコードの重複を減らすときには委譲と継承を使ってください。</p>
+</div>
 </div>
 
 <div class="stylebody">
 
 <div class="definition">
 
+<div class="para">
 <p>Delegating and inheriting constructors are two
 different features, both introduced in C++11, for
 reducing code duplication in constructors. Delegating
@@ -2246,6 +2250,13 @@ constructors allow one of a class's constructors to
 forward work to one of the class's other constructors,
 using a special variant of the initialization list
 syntax. For example:</p>
+<p class="ja">コンストラクタの委譲と継承は2つの異なる機能で、
+コンストラクタでのコード重複を減らすために、
+どちらもC++11で導入されました。
+コンストラクタの委譲は、初期化子リスト構文の特殊な変形を使って、
+あるクラスのコンストラクタはそのクラスの他のコンストラクタに
+仕事を転送することができます。例えば、</p>
+</div>
 
 <pre>X::X(const string&amp; name) : name_(name) {
   ...
@@ -2254,13 +2265,22 @@ syntax. For example:</p>
 X::X() : X("") { }
 </pre>
 
+<div class="para">
 <p>Inheriting constructors allow a derived class to have
 its base class's constructors available directly, just as
 with any of the base class's other member functions,
 instead of having to redeclare them. This is especially
 useful if the base has multiple constructors. For
 example:</p>
+<p class="ja">コンストラクタを継承することは、
+ちょうど基底クラスの他のメンバ関数で行うのと同じように、
+再宣言しなければいけないことに代わって、
+派生クラスが基底クラスのコンストラクタを直接利用できるようにします。
+これは基底クラスが複数のコンストラクタをもつ場合に特に役立ちます。
+例えば、</p>
+</div>
 
+<div class="para">
 <pre>class Base {
  public:
   Base();
@@ -2274,37 +2294,76 @@ class Derived : public Base {
   using Base::Base;  // Base's constructors are redeclared here.
 };
 </pre>
+<pre class="ja">class Base {
+ public:
+  Base();
+  Base(int n);
+  Base(const string&amp; s);
+  ...
+};
 
+class Derived : public Base {
+ public:
+  using Base::Base;  // 基底クラスのコンストラクタはここで再宣言します。
+};
+</pre>
+</div>
+
+<div class="para">
 <p>This is especially useful when <code>Derived</code>'s
 constructors don't have to do anything more than calling
 <code>Base</code>'s constructors.</p>
+<p class="ja"><code>Derived</code>のコンストラクタが<code>Base</code>
+のコンストラクタを呼び出す以上の何かをする必要がない場合に特に役立ちます。</p>
+</div>
 </div>
 
 <div class="pros">
+<div class="para">
 <p>Delegating and inheriting constructors reduce
 verbosity and boilerplate, which can improve
 readability.</p>
+<p class="ja">コンストラクタの委譲と継承は冗長性と決まり文句を減らし、可読性を改善できます。</p>
+</div>
 
+<div class="para">
 <p>Delegating constructors are familiar to Java
 programmers.</p>
+<p class="ja">コンストラクタの委譲はJavaプログラマにとっては親しみがあります。</p>
+</div>
 </div>
 
 <div class="cons">
+<div class="para">
 <p>It's possible to approximate the behavior of
 delegating constructors by using a helper function.</p>
+<p class="ja">ヘルパ関数を使ってコンストラクタの委譲の振る舞いに近いことはできます。</p>
+</div>
 
+<div class="para">
 <p>Inheriting constructors may be confusing if a derived
 class introduces new member variables, since the base
-class constructor doesn't know about them.</p>
+  class constructor doesn't know about them.</p>
+<p class="ja">もし派生クラスの新しいメンバ変数を追加した場合、
+基底クラスのコンストラクタはそれらについて知らないため、
+コンストラクタを継承することは混乱しやすいかもしれません。</p>
+</div>
 </div>
 
 <div class="decision">
+<div class="para">
 <p>Use delegating and inheriting constructors when they reduce
 boilerplate and improve readability.
 Be cautious about inheriting constructors when your derived class has
 new member variables. Inheriting constructors may still be appropriate
 in that case if you can use in-class member initialization
 for the derived class's member variables.</p>
+<p class="ja">決まり文句を減らして可読性が改善されるのであれば、
+コンストラクタの委譲と継承を使いましょう。
+派生クラスに新しいメンバ変数があるときにはコンストラクタの継承に気をつけてください。
+派生クラスのメンバ変数のためにクラス内メンバ初期化を使えるようなケースでは、
+コンストラクタの継承もまた適切かもしれません。</p>
+</div>
 </div>
 
 </div> 
