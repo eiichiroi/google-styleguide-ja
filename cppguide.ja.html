@@ -2442,16 +2442,21 @@ functors and traits.</p>
 
 </div> 
 
-<h3 id="Inheritance">Inheritance</h3>
+<h3 id="Inheritance">継承</h3>
 
 <div class="summary">
+<div class="para">
 <p>Composition is often more appropriate than inheritance.
 When using inheritance, make it <code>public</code>.</p>
+<p class="ja">継承より合成の方がより適切なことがしばしばあります。
+継承を使うときは、<code>public</code>継承にしましょう。</p>
+</div>
 </div>
 
 <div class="stylebody">
 
 <div class="definition">
+<div class="para">
 <p> When a sub-class
 inherits from a base class, it includes the definitions
 of all the data and operations that the parent base class
@@ -2460,9 +2465,17 @@ ways in C++: implementation inheritance, in which actual
 code is inherited by the child, and
 <a href="#Interfaces">interface inheritance</a>, in which
 only method names are inherited.</p>
+<p class="ja">基本クラスからサブクラスに継承するときは、
+親の基本クラスが定義するデータと操作の定義すべてを含みます。
+実用的には、継承はC++では二つの目立った方法で使われます。
+実際のコードが子供に継承される実装の継承と、
+メソッドの名前だけが継承される
+<a href="#Interfaces">インタフェースの継承</a>です。</p>
+</div>
 </div>
 
 <div class="pros">
+<div class="para">
 <p>Implementation inheritance reduces code size by re-using
 the base class code as it specializes an existing type.
 Because inheritance is a compile-time declaration, you
@@ -2472,9 +2485,19 @@ programmatically enforce that a class expose a particular
 API. Again, the compiler can detect errors, in this case,
 when a class does not define a necessary method of the
 API.</p>
+<p class="ja">実装の継承は、
+基本クラスのコードを再利用することによって、
+既存の型に特殊化するのと同じようにコードサイズを減らします。
+継承はコンパイル時の宣言なので、
+あなたとコンパイラはその操作を理解してエラーを検出できます。
+インタフェースの継承はあるクラスが特定のAPIを提供することを
+プログラムにしたがって強制するのに使われます。また、このケースでは、
+APIの必要なメソッドを定義していないときにコンパイラはエラーを検出できます。</p>
+</div>
 </div>
 
 <div class="cons">
+<div class="para">
 <p>For implementation inheritance, because the code
 implementing a sub-class is spread between the base and
 the sub-class, it can be more difficult to understand an
@@ -2483,30 +2506,61 @@ that are not virtual, so the sub-class cannot change
 implementation. The base class may also define some data
 members, so that specifies physical layout of the base
 class.</p>
+<p class="ja">実装の継承の場合、
+サブクラスを実装するコードは基本クラスとサブクラスに広がっているので、
+実装を理解することはより難しくなるかもしれません。
+サブクラスは仮想でない関数をオーバーライドできないので、
+サブクラスは実装を変更できません。
+基本クラスは、いくつかのデータメンバを定義できるので、
+そのため基本クラスの物理的なレイアウトを指定できます。</p>
+</div>
 </div>
 
 <div class="decision">
 
+<div class="para">
 <p>All inheritance should be <code>public</code>. If you
 want to do private inheritance, you should be including
 an instance of the base class as a member instead.</p>
+<p class="ja">すべての継承は<code>public</code>であるべきです。
+もしあなたがprivate継承をしたいのであれば、
+代わりに基本クラスのインスタンスをメンバとして含めるべきです。</p>
+</div>
 
+<div class="para">
 <p>Do not overuse implementation inheritance. Composition
 is often more appropriate. Try to restrict use of
 inheritance to the "is-a" case: <code>Bar</code>
 subclasses <code>Foo</code> if it can reasonably be said
 that <code>Bar</code> "is a kind of"
 <code>Foo</code>.</p>
+<p class="ja">実装の継承を使いすぎてはいけません。
+しばしば合成の方がより適切です。
+継承を"is-a"関係への使用に制限しようとしてみてください。
+もし<code>Bar</code>が<code>Foo</code>の一種であると合理的に言えるのであれば、
+<code>Bar</code>を<code>Foo</code>のサブクラスにしましょう。</p>
+</div>
 
+<div class="para">
 <p>Make your destructor <code>virtual</code> if
 necessary. If your class has virtual methods, its
 destructor  should be virtual.</p>
+<p class="ja">必要であればデストラクタを<code>virtual</code>にしてください。
+もしあなたのクラスが仮想メソッドをもつのであれば、
+そのデストラクタはvirtualであるべきです。</p>
+</div>
 
+<div class="para">
 <p>Limit the use of <code>protected</code> to those
 member functions that might need to be accessed from
 subclasses. Note that <a href="#Access_Control">data
 members should be private</a>.</p>
+<p class="ja"><code>protected</code>の使用を
+サブクラスからアクセスされる必要があるかもしれないメンバ関数に制限してください。
+<a href="#Access_Control">データメンバはprivateであるべき</a>に注意してください。</p>
+</div>
 
+<div class="para">
 <p>Explicitly annotate overrides of virtual functions
 or virtual destructors with an <code>override</code>
 or (less frequently) <code>final</code> specifier.
@@ -2523,6 +2577,22 @@ specifiers serve as documentation; if no specifier is
 present, the reader has to check all ancestors of the
 class in question to determine if the function or
 destructor is virtual or not.</p>
+<p class="ja">仮想関数のオーバーライドや仮想デストラクタを
+<code>override</code>か(それほど多くはない)<code>final</code>
+修飾子で明示的に注釈をつけてください。
+古い(C++11以前の)コードは<code>virtual</code>キーワードを
+劣っている代わりの注釈として使うかもしれません。
+明快さのために、オーバーライドを宣言するときは、
+<code>override</code>か<code>final</code>、
+<code>virtual</code>のどれか一つを使ってください。
+理論的根拠は次の通りです。
+基本クラスの仮想関数のオーバーライドをしない
+<code>override</code>か<code>final</code>で印がつけられた関数やデストラクタは
+コンパイルされないので、これは共通のエラーを得る助けとなります。
+修飾子はドキュメントとして提供されます。
+もし修飾子がないと、その関数やデストラクタが仮想かどうかに答えるために、
+読み手はそのクラスのすべての祖先をチェックしなければいけません。</p>
+</div>
 </div>
 
 </div> 
