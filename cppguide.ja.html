@@ -2788,43 +2788,74 @@ to end with <code>Interface</code>.</p>
 
 </div> 
 
-<h3 id="Operator_Overloading">Operator Overloading</h3>
+<h3 id="Operator_Overloading">演算子のオーバーロード</h3>
 
 <div class="summary">
+<div class="para">
 <p> Do not overload operators except in rare, special
 circumstances. Do not create user-defined literals.</p>
+<p class="ja">まれで特別な状況を除いて、
+演算子をオーバーロードしてはいけません。
+ユーザ定義のリテラルを作ってはいけません。</p>
+</div>
 </div>
 
 <div class="stylebody">
 
 <div class="definition">
+<div class="para">
 <p> A class can
 define that operators such as <code>+</code> and
 <code>/</code> operate on the class as if it were a
 built-in type. An overload of <code>operator""</code>
 allows the built-in literal syntax to be used to create
 objects of class types.</p>
+<p class="ja">クラスは、
+組み込み型と同じようにクラスに作用する<code>+</code>と<code>/</code>
+のような演算子を定義できます。
+<code>operator""</code>のオーバーロードは、
+組み込みのリテラル構文をクラス型のオブジェクトを作るために使うことができます。</p>
+</div>
 </div>
 
 <div class="pros">
+<div class="para">
 <p>Operator overloading can make code appear more
 intuitive because a class will behave in the same way as
 built-in types (such as <code>int</code>). Overloaded
 operators are more playful names for functions that are
 less-colorfully named, such as <code>Equals()</code> or
 <code>Add()</code>.</p>
+<p class="ja"><code>int</code>のような組み込み型と同じようにクラスが振舞うので、
+演算子のオーバーロードは見えるコードをより直感的にできます。
+オーバーロードされた演算子は<code>Equals()</code>や<code>Add()</code>のような
+色あせた関数名に比べてよりお茶目です。</p>
+</div>
 
+<div class="para">
 <p>For some template functions to work correctly, you may
 need to define operators.</p>
+<p class="ja">いくつかのテンプレート関数に対しては正しく動作しますが、
+複数の演算子を定義する必要があるかもしれません。</p>
+</div>
 
+<div class="para">
 <p>User-defined literals are a very concise notation for
 creating objects of user-defined types.</p>
+<p class="ja">ユーザ定義リテラルは、
+ユーザ定義型のオブジェクト作成のための非常に簡潔な記法です。</p>
+</div>
 </div>
 
 <div class="cons">
+<div class="para">
 <p>While operator overloading can make code more intuitive,
 it has several drawbacks:</p>
+<p class="ja">演算子のオーバーロードはコードをより直感的にできる一方で、
+いくつかの欠点があります。</p>
+</div>
 
+<div class="para">
 <ul>
   <li>It can fool our intuition into thinking that
   expensive operations are cheap, built-in
@@ -2845,23 +2876,56 @@ it has several drawbacks:</p>
   forms that are unfamiliar even to experienced C++
   programmers.</li>
 </ul>
+<ul class="ja">
+  <li>高価な操作が安価な組み込み操作であるとわたしたちの直感をだますことができます。</li>
 
+  <li>オーバーロードされた演算子の呼び出し場所を見つけることがより難しくなります。
+    <code>Equals()</code>を探すことは、
+    <code>==</code>に関連する呼び出しを見つけることよりもより簡単です。</li>
+
+  <li>ポインタに作用するいくつかの演算子もバグを導入しやすくします。
+    <code>Foo + 4</code>は一つのことをしますが、
+    <code>&amp;Foo + 4</code>は全く違うことをいくつか行います。
+    コンパイラはこれらのどちらであるかを説明しないので、
+    デバッグすることがとても難しくなります。</li>
+
+  <li>ユーザ定義リテラルは、
+    経験を積んだC++プログラマでさえ親しみにくい新しい構文を作ることができます。</li>
+</ul>
+</div>
+
+<div class="para">
 <p>Overloading also has surprising ramifications. For
 instance, if a class overloads unary
 <code>operator&amp;</code>, it cannot safely be
 forward-declared.</p>
+<p class="ja">オーバーロードは驚くべき副作用ももっています。
+例えば、あるクラスが単項の<code>operator&amp;</code>をオーバーロードした場合、
+それを安全に前方宣言することができません。</p>
+</div>
 </div>
 
 <div class="decision">
+<div class="para">
 <p>In general, do not overload operators. You can define
 ordinary functions like <code>Equals()</code> if
 you need them. Likewise, avoid the dangerous unary
 <code>operator&amp;</code> at all costs, if there's any
 possibility the class might be forward-declared.</p>
+<p class="ja">一般的には、演算子をオーバーロードしてはいけません。
+もし必要なら、<code>Equals()</code>のような普通の関数を定義できます。
+同様に、もしそのクラスが前方宣言される可能性があるのであれば、
+危険な単項の<code>operator&amp;</code>を何としても避けてください。</p>
+</div>
 
+<div class="para">
 <p>Do not overload <code>operator""</code>, i.e. do not
 introduce user-defined literals.</p>
+<p class="ja"><code>operator""</code>はオーバーロードしてはいけません。
+すなわち、ユーザ定義リテラルを導入してはいけません。</p>
+</div>
 
+<div class="para">
 <p>However, there may be rare cases where you need to
 overload an operator to interoperate with templates or
 "standard" C++ classes (such as
@@ -2873,13 +2937,31 @@ so that your class can be used as a key in an STL
 container; instead, you should create equality and
 comparison functor types when declaring the
 container.</p>
+<p class="ja">しかしながら、
+(ロギングのための<code>operator&lt;&lt;(ostream&amp;, const T&amp;)</code>のような、)
+テンプレートや標準のC++クラスに相互作用するための演算子をオーバーロードする必要がある稀なケースがあるかもしれません。
+もし完全に正当化されるのであれば、それらは認められますが、
+可能なときはいつでもそれらを避けようとするべきです。
+特に、単にあなたのクラスをSTLのコンテナのキーとして使いたいだけで
+<code>operator==</code>や<code>operator&lt;</code>をオーバーロードしてはいけません。
+代わりに、コンテナを宣言するときに等値と比較ファンクタの型を作りましょう。</p>
+</div>
 
+<div class="para">
 <p>Some of the STL algorithms do require you to overload
 <code>operator==</code>, and you may do so in these
 cases, provided you document why.</p>
+<p class="ja">STLアルゴリズムのいくつかは
+<code>operator==</code>をオーバーロードすることをあなたに要求するので、
+あなたがその場合にそうしたら、理由をドキュメントにして提供してください。</p>
+</div>
 
+<div class="para">
 <p>See also <a href="#Copyable_Movable_Types">Copyable and Movable
 Types</a> and <a href="#Function_Overloading">Function Overloading</a>.</p>
+<p class="ja"><a href="#Copyable_Movable_Types">コピー可能とムーブ可能な型</a>と
+<a href="#Function_Overloading">関数のオーバーロード</a>も見てください。</p>
+</div>
 </div>
 
 </div> 
