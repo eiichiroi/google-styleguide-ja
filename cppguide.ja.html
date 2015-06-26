@@ -2597,49 +2597,79 @@ destructor is virtual or not.</p>
 
 </div> 
 
-<h3 id="Multiple_Inheritance">Multiple Inheritance</h3>
+<h3 id="Multiple_Inheritance">多重継承</h3>
 
 <div class="summary">
+<div class="para">
 <p>Only very rarely is multiple implementation inheritance
 actually useful. We allow multiple inheritance only when at
 most one of the base classes has an implementation; all
 other base classes must be <a href="#Interfaces">pure
 interface</a> classes tagged with the
 <code>Interface</code> suffix.</p>
+<p class="ja">実装の多重継承が実際に役立つことは非常にまれです。
+わたしたちは基本クラスの高々一つが実装をもつときだけ多重継承を認めます。
+他のすべての基本クラスは接尾辞<code>Interface</code>でタグ付けされた
+<a href="#Interfaces">純粋なインタフェース</a>であるクラスでなければいけません。</p>
+</div>
 </div>
 
 <div class="stylebody">
 
 <div class="definition">
+<div class="para">
 <p>Multiple inheritance allows a sub-class to have more than
 one base class. We distinguish between base classes that are
 <em>pure interfaces</em> and those that have an
 <em>implementation</em>.</p>
+<p class="ja">多重継承はサブクラスが一つより多い基本クラスをもつことを許します。
+わたしたちは基本クラスの<em>純粋なインタフェース</em>であるクラスと
+<em>実装</em>をもつクラスで区別します。</p>
+</div>
 </div>
 
 <div class="pros">
+<div class="para">
 <p>Multiple implementation inheritance may let you re-use
 even more code than single inheritance (see <a href="#Inheritance">Inheritance</a>).</p>
+<p class="ja">
+実装の多重継承は単一の継承よりたくさんのコードを再利用できるようにするかもしれません
+(<a href="#Inheritance">継承</a>を見てください)。</p>
+</div>
 </div>
 
 <div class="cons">
+<div class="para">
 <p>Only very rarely is multiple <em>implementation</em>
 inheritance actually useful. When multiple implementation
 inheritance seems like the solution, you can usually find
 a different, more explicit, and cleaner solution.</p>
+<p class="ja"><em>実装の</em>多重継承が実際に役立つことは非常にまれです。
+実装の多重継承が解決策のようにみえるとき、
+  あなたは通常、より明示的でよりきれいな違う解決策を見つけることができるでしょう。</p>
+</div>
 </div>
 
 <div class="decision">
+<div class="para">
 <p> Multiple inheritance is allowed only when all
 superclasses, with the possible exception of the first one,
 are <a href="#Interfaces">pure interfaces</a>. In order to
 ensure that they remain pure interfaces, they must end with
 the <code>Interface</code> suffix.</p>
+<p class="ja">多重継承は、すべてのスーパークラスが最初の一つを除いて
+<a href="#Interfaces">純粋なインタフェース</a>であるときだけ認められます。
+純粋なインタフェースであり続けることを保証するために、
+それらのクラスは接尾辞<code>Interface</code>で終わるべきです。</p>
+</div>
 </div>
 
 <div class="note">
+<div class="para">
 <p>There is an <a href="#Windows_Code">exception</a> to
 this rule on Windows.</p>
+<p class="ja">Windowsではこのルールに<a href="#Windows_Code">例外</a>が一つあります。</p>
+</div>
 </div>
 
 </div> 
