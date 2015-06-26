@@ -2674,19 +2674,27 @@ this rule on Windows.</p>
 
 </div> 
 
-<h3 id="Interfaces">Interfaces</h3>
+<h3 id="Interfaces">インタフェース</h3>
 
 <div class="summary">
+<div class="para">
 <p>Classes that satisfy certain conditions are allowed, but
 not required, to end with an <code>Interface</code> suffix.</p>
+<p class="ja">一定の条件を満たすクラスは接尾辞<code>Interface</code>
+で終わることを認めますが、必須ではありません。</p>
+</div>
 </div>
 
 <div class="stylebody">
 
 <div class="definition">
+<div class="para">
 <p>A class is a pure interface if it meets the following
 requirements:</p>
+<p class="ja">次の条件を満たすとき、クラスは純粋なインタフェースです。</p>
+</div>
 
+<div class="para">
 <ul>
   <li>It has only public pure virtual ("<code>=
   0</code>") methods and static methods (but see below
@@ -2702,7 +2710,21 @@ requirements:</p>
   classes that satisfy these conditions and are tagged
   with the <code>Interface</code> suffix.</li>
 </ul>
+<ul class="ja">
+  <li>パブリックな仮想メソッド("<code>=0</code>")と静的メソッドのみをもっている。</li>
 
+  <li>静的でないデータメンバをもっていない。</li>
+
+  <li>コンストラクタが定義されている必要はない。
+    もしあるコンストラクタが提供されている場合、
+    それは引数を持たずプロテクテッドでなければならない。</li>
+
+  <li>もしそれがサブクラスなら、それらの条件を満たす接尾辞<code>Interface</code>
+    でタグ付けされてるクラスからのみ派生していなければいけない。</li>
+</ul>
+</div>
+
+<div class="para">
 <p>An interface class can never be directly instantiated
 because of the pure virtual method(s) it declares. To
 make sure all implementations of the interface can be
@@ -2711,31 +2733,57 @@ virtual destructor (in an exception to the first rule,
 this should not be pure). See Stroustrup, <cite>The C++
 Programming Language</cite>, 3rd edition, section 12.4
 for details.</p>
+<p class="ja">純粋仮想メソッドを宣言しているので、
+インタフェースクラスは直接インスタンス化されることはありません。
+そのインタフェースのすべての実装が必ず正しく破棄されるように、
+そのインタフェースは仮想デストラクタも宣言しなければいけません
+(最初のルールに対する例外があり、これは純粋にしてはいけません)。
+詳しくは、<cite>プログラミング言語C++</cite>第3版の12.4節を見てください。</p>
+</div>
 </div>
 
 <div class="pros">
+<div class="para">
 <p>Tagging a class with the <code>Interface</code> suffix
 lets others know that they must not add implemented
 methods or non static data members. This is particularly
 important in the case of <a href="#Multiple_Inheritance">multiple inheritance</a>.
 Additionally, the interface concept is already
 well-understood by Java programmers.</p>
+<p class="ja">接尾辞<code>Interface</code>でタグ付けされたクラスは、
+実装されたメソッドや非静的データメンバを追加してはいけないことを
+他の人に知らせます。
+これは特に<a href="#Multiple_Inheritance">多重継承</a>の場合に重要です。
+加えて、インタフェースの概念はすでにJavaプログラマによってよく理解されています。</p>
+</div>
 </div>
 
 <div class="cons">
+<div class="para">
 <p>The <code>Interface</code> suffix lengthens the class
 name, which can make it harder to read and understand.
 Also, the interface property may be considered an
 implementation detail that shouldn't be exposed to
 clients.</p>
+<p class="ja">接尾辞<code>Interface</code>はクラスの名前を長くし、
+読んで理解することを難しくするかもしれません。
+また、インタフェースの性質は、
+クライアントに公開されるべきでない実装の詳細と考えられるかもしれません。</p>
+</div>
 </div>
 
 <div class="decision">
+<div class="para">
 <p>A class may end
 with <code>Interface</code> only if it meets the above
 requirements. We do not require the converse, however:
 classes that meet the above requirements are not required
 to end with <code>Interface</code>.</p>
+<p class="ja">上記の条件を満たすときだけ、
+クラスは接尾辞<code>Interface</code>で終わるかもしれません。
+しかしながら、逆は必要ありません。すなわち、
+上記の条件を満たすクラスは<code>Interface</code>で終わる必要はありません。</p>
+</div>
 </div>
 
 </div> 
