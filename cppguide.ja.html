@@ -1296,7 +1296,7 @@ set of options for some method. </p>
 
 </div> 
 
-<h3 id="Nonmember,_Static_Member,_and_Global_Functions">非メンバと静的メンバとグローバル関数</h3>
+<h3 id="Nonmember,_Static_Member,_and_Global_Functions">非メンバ関数と静的メンバ関数とグローバル関数</h3>
 
 <div class="summary">
 <div class="para">
@@ -1478,7 +1478,7 @@ for (int i = 0; i &lt; 1000000; ++i) {
   f.DoSomething(i);
 }
 </pre>
-<pre class="ja">// 効率の悪い実装:
+<pre class="badcode ja">// 効率の悪い実装:
 for (int i = 0; i &lt; 1000000; ++i) {
   Foo f;  // コンストラクタとデストラクタがそれぞれ1000000回ずつ呼び出されます。
   f.DoSomething(i);
@@ -2007,7 +2007,7 @@ function argument, or return statement. For example:</p>
 
 </div> 
 
-<h3 id="Copyable_Movable_Types">コピー可能とムーブ可能な型</h3>
+<h3 id="Copyable_Movable_Types">コピー可能な型とムーブ可能な型</h3>
 <a id="Copy_Constructors"></a>
 <div class="summary">
 <div class="para">
