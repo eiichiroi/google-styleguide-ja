@@ -3012,25 +3012,41 @@ the header file.</p>
 
 </div> 
 
-<h3 id="Declaration_Order">Declaration Order</h3>
+<h3 id="Declaration_Order">宣言の順序</h3>
 
 <div class="summary">
+<div class="para">
 <p> Use the specified order of declarations within a class:
 <code>public:</code> before <code>private:</code>, methods
 before data members (variables), etc.</p>
+<p class="ja">クラスの中では指定された宣言の順序を使ってください。
+例えば、<code>private:</code>の前に<code>public:</code>、
+データメンバ(変数)の前にメソッド、などです。</p>
+</div>
 </div>
 
 <div class="stylebody">
 
+<div class="para">
 <p>Your class definition should start with its
 <code>public:</code> section, followed by its
 <code>protected:</code> section and then its
 <code>private:</code> section. If any of these sections
 are empty, omit them.</p>
+<p class="ja">クラスの定義は、
+<code>public:</code>セクションで始まり、
+<code>protected:</code>セクションが続いて、
+それから<code>private:</code>セクションです。
+もしそれらのセクションが空である場合には、省略してください。</p>
+</div>
 
+<div class="para">
 <p>Within each section, the declarations generally should
 be in the following order:</p>
+<p class="ja">各セクションの中では、宣言は一般的に次の順序であるべきです。</p>
+</div>
 
+<div class="para">
 <ul>
   <li>Typedefs and Enums</li>
 
@@ -3046,23 +3062,53 @@ be in the following order:</p>
   <li>Data Members (except <code>static const</code> data
   members)</li>
 </ul>
+<ul class="ja">
+  <li>typedefとenum</li>
 
+  <li>定数(<code>static const</code>データメンバ)</li>
+
+  <li>コンストラクタ</li>
+
+  <li>デストラクタ</li>
+
+  <li>メソッド(静的メソッドを含む)</li>
+
+  <li>データメンバ( <code>static const</code>データメンバを除く)</li>
+</ul>
+</div>
+
+<div class="para">
 <p>Friend declarations should always be in the private
 section. If copying and assignment are disabled with a macro
 such as <code>DISALLOW_COPY_AND_ASSIGN</code>, it should be
 at the end of the <code>private:</code> section, and should be
 the last thing in the class. See
 <a href="#Copyable_Movable_Types">Copyable and Movable Types</a>.</p>
+<p class="ja">フレンド宣言は常にprivateセクションの中に置かれるべきです。
+もし、<code>DISALLOW_COPY_AND_ASSIGN</code>
+のようなマクロを使ってコピーと代入を無効にするのであれば、
+<code>private:</code>セクションの終わりに置いて、
+クラスの中で最後のものにするべきです。</p>
+</div>
 
+<div class="para">
 <p>Method definitions in the corresponding
 <code>.cc</code> file should be the same as the
 declaration order, as much as possible.</p>
+<p class="ja">対応する<code>.cc</code>ファイルの中にメソッドの定義は、
+可能な限り宣言の順序と同じであるべきです。</p>
+</div>
 
+<div class="para">
 <p>Do not put large method definitions inline in the
 class definition. Usually, only trivial or
 performance-critical, and very short, methods may be
 defined inline. See <a href="#Inline_Functions">Inline
 Functions</a> for more details.</p>
+<p class="ja">大きなメソッド定義をクラス定義の中にインラインで置いてはいけません。
+通常、自明であるか性能が重要であり、かつ、とても短いメソッドはインラインで定義されるかもしれません。
+詳しくは<a href="#Inline_Functions">インライン関数</a>を見てください。</p>
+</div>
 
 </div> 
 
