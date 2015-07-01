@@ -3112,25 +3112,41 @@ Functions</a> for more details.</p>
 
 </div> 
 
-<h3 id="Write_Short_Functions">Write Short Functions</h3>
+<h3 id="Write_Short_Functions">短い関数を書こう</h3>
 
 <div class="summary">
+<div class="para">
 <p>Prefer small and focused functions.</p>
+<p class="ja">小さくて集中した関数を好んでください。</p>
+</div>
 </div>
 
 <div class="stylebody">
+<div class="para">
 <p>We recognize that long functions are sometimes
 appropriate, so no hard limit is placed on functions
 length. If a function exceeds about 40 lines, think about
 whether it can be broken up without harming the structure
 of the program.</p>
+<p class="ja">
+長い関数はときどき適切なので、関数の長さに厳しい制約は設けていません。
+もしある関数がおよそ40行を超える場合、
+プログラムの構造を悪くすることなく分割できるかどうか考えみてください。</p>
+</div>
 
+<div class="para">
 <p>Even if your long function works perfectly now,
 someone modifying it in a few months may add new
 behavior. This could result in bugs that are hard to
 find. Keeping your functions short and simple makes it
 easier for other people to read and modify your code.</p>
+<p class="ja">たとえもし長い関数がいま完璧に動作しているとしても、
+数ヶ月のうちにだれかが変更することで新しい振る舞いが追加されるかもしれません。
+これは見つけることが難しいバグという結果になるでしょう。
+関数を短く簡素に保つことで他の人々がコードを読んだり変更しやすくなります。</p>
+</div>
 
+<div class="para">
 <p>You could find long and complicated functions when
 working with 
 some code. Do not be
@@ -3139,6 +3155,14 @@ such a function proves to be difficult, you find that
 errors are hard to debug, or you want to use a piece of
 it in several different contexts, consider breaking up
 the function into smaller and more manageable pieces.</p>
+<p class="ja">
+何らかのコードと作業するときに長くて複雑な関数を見つけるかもしれません。
+既存のコードを変更すること恐れないでください。
+もしそのような検証することが難しい関数と作業するのであれば、
+デバッグしにくいエラーを見つけるでしょうし、
+あるいはいくつかの文脈でその一部分を使いたくなるでしょう。
+その関数をより小さくて管理しやすい部品に分解することを検討してください。</p>
+</div>
 
 </div> 
 
