@@ -2966,9 +2966,10 @@ Types</a> and <a href="#Function_Overloading">Function Overloading</a>.</p>
 
 </div> 
 
-<h3 id="Access_Control">Access Control</h3>
+<h3 id="Access_Control">アクセス制御</h3>
 
 <div class="summary">
+<div class="para">
 <p> Make data members <code>private</code>, and provide access
 to them through accessor functions as needed (for technical
 reasons, we allow data members of a test fixture class to
@@ -2982,15 +2983,32 @@ Test</a>). Typically a variable would be called
 <code>set_foo()</code>. Exception: <code>static
 const</code> data members (typically called
 <code>kFoo</code>) need not be <code>private</code>.</p>
+<p class="ja">データメンバを<code>private</code>にして、
+必要に応じてアクセッサ関数を通じたアクセス方法を提供してください。
+技術的な理由のため、
+<a href="http://code.google.com/p/googletest/">Google Test</a>を使うときに、
+テストのフィクスチャクラスのデータメンバを<code>protected</code>にしても構いません。
+典型的に、変数は<code>foo_</code>、そのアクセッサ関数は<code>foo()</code>と呼ばれます。
+ミューテータ関数<code>set_foo()</code>も欲しいかもしれません。
+例外である(典型的に<code>kFoo</code>と呼ばれる)<code>static const</code>データメンバは
+<code>private</code>である必要はありません。</p>
+</div>
 </div>
 
 <div class="stylebody">
 
+<div class="para">
 <p>The definitions of accessors are usually inlined in
 the header file.</p>
+<p class="ja">アクセッサの定義は通常ヘッダファイルにインラインとして置かれます。</p>
+</div>
 
+<div class="para">
 <p>See also <a href="#Inheritance">Inheritance</a> and
 <a href="#Function_Names">Function Names</a>.</p>
+<p class="ja"><a href="#Inheritance">継承</a>と
+<a href="#Function_Names">関数名</a>も見てください。</p>
+</div>
 
 </div> 
 
