@@ -3166,27 +3166,38 @@ the function into smaller and more manageable pieces.</p>
 
 </div> 
 
-<h2 id="Google-Specific_Magic">Google-Specific Magic</h2>
+<h2 id="Google-Specific_Magic">Google特有の魔法</h2>
 
 
 
+<div class="para">
 <p>There are various tricks and utilities that
 we use to make C++ code more robust, and various ways we use
 C++ that may differ from what you see elsewhere.</p>
+<p class="ja">
+わたしたちがC++のコードをより強固にするために使う様々なトリックとユーティリティがあり、
+わたしたちがC++を使う様々な方法はあなたがどこかで見たことがあるものと違うかもしれません。</p>
+</div>
 
  
 
-<h3 id="Ownership_and_Smart_Pointers">Ownership and Smart Pointers</h3>
+<h3 id="Ownership_and_Smart_Pointers">所有権とスマートポインタ</h3>
 
 <div class="summary">
+<div class="para">
 <p>Prefer to have single, fixed owners for dynamically
 allocated objects. Prefer to transfer ownership with smart
 pointers.</p>
+<p class="ja">
+動的に割り当てられたオブジェクトは一つの決まった所有者が持つようにしてください。
+スマートポインタと共に所有権を委譲してください。</p>
+</div>
 </div>
 
 <div class="stylebody">
 
 <div class="definition">
+<div class="para">
 <p>"Ownership" is a bookkeeping technique for managing
 dynamically allocated memory (and other resources). The
 owner of a dynamically allocated object is an object or
@@ -3196,7 +3207,15 @@ shared, in which case the last owner is typically
 responsible for deleting it. Even when ownership is not
 shared, it can be transferred from one piece of code to
 another.</p>
+<p class="ja">
+「所有権」は動的に割り当てたれたメモリ(と他のリソース)を管理するための保守技術です。
+動的に割り当てられたオブジェクトの所有者は、
+必要のなくなったときにそれが削除されることを保証する責任を持っているオブジェクトか関数です。
+所有権はときどき共有され、そのようなケースでは一般的に最後の所有者がそれを削除する責任を持ちます。
+所有権が共有されないときであっても、コードの一部分からその他へ委譲されるかもしれません。</p>
+</div>
 
+<div class="para">
 <p>"Smart" pointers are classes that act like pointers,
 e.g. by overloading the <code>*</code> and
 <code>-&gt;</code> operators. Some smart pointer types
@@ -3216,9 +3235,27 @@ a dynamically allocated object. <code>std::shared_ptr</code>s
 can be copied; ownership of the object is shared among
 all copies, and the object is deleted when the last
 <code>std::shared_ptr</code> is destroyed. </p>
+<p class="ja">
+「スマート」ポインタは、たとえば、
+<code>*</code>と<code>-&gt;</code>演算子をオーバーロードすることによって、
+ポインタのように振る舞うクラスです。
+いくつかのスマートポインタ型は、それらの責任が満たされるように保証するため、
+所有権の保守を自動化することに使われます。
+<a href="http://www.google.com/url?sa=D&amp;q=http://en.cppreference.com/w/cpp/memory/unique_ptr">
+<code>std::unique_ptr</code></a>はC++11で導入されたスマートポインタ型で、
+動的に割り当てられたオブジェクトの排他的な所有権を表現します。
+<code>std::unique_ptr</code>がスコープの外に出るときに、そのオブジェクトは削除されます。
+<code>std::unique_ptr</code>はコピーできませんが、所有権の委譲を表す<em>ムーブ</em>はできます。
+<a href="http://www.google.com/url?sa=D&amp;q=http://en.cppreference.com/w/cpp/memory/shared_ptr">
+<code>std::shared_ptr</code></a>は、動的に割り当てられてオブジェクトの共有された所有権を表現します。
+<code>std::shared_ptr</code>はコピーできます。
+オブジェクトの所有権はすべてのコピーの間で共有され、
+最後の<code>std::shared_ptr</code>が破棄されたときにそのオブジェクトを削除します。</p>
+</div>
 </div>
 
 <div class="pros">
+<div class="para">
 <ul>
   <li>It's virtually impossible to manage dynamically
   allocated memory without some sort of ownership
@@ -3243,9 +3280,31 @@ all copies, and the object is deleted when the last
   <li>For const objects, shared ownership can be a simple
   and efficient alternative to deep copying.</li>
 </ul>
+<ul class="ja">
+  <li>なんらかの所有権のロジックの類なしに、
+    動的に割り当てられたオブジェクトを管理することはほとんど不可能です。</li>
+
+  <li>あるオブジェクトの所有権を委譲することは、
+    (もしコピーすることができたとしても)それをコピーするより安いです。</li>
+  
+  <li>所有権を委譲することはポインタか参照を「借りる」より簡単です。
+    なぜなら、二つのユーザの間でそのオブジェクトの生存期間を調整する必要を減らすからです。</li>
+
+  <li>スマートポインタは、
+    所有権のロジックを明示的に自身を文書化して明確にすることによって、
+    可読性を改善するかもしれません。</li>
+
+  <li>スマートポインタは手動の所有権の保守を排除でき、
+    コードを単純化してエラーの巨大なクラスを排除します。</li>
+  
+  <li>constオブジェクトに対して、
+    共有された所有権は単純で深いコピーの効率的な代案になるかもしれません。</li>
+</ul>
+</div>
 </div>
 
 <div class="cons">
+<div class="para">
 <ul>
   <li>Ownership must be represented and transferred via
   pointers (whether smart or plain). Pointer semantics
@@ -3282,22 +3341,64 @@ all copies, and the object is deleted when the last
   <li>Smart pointers are not perfect substitutes for
   plain pointers.</li>
 </ul>
+<ul class="ja">
+  <li>所有権は、(スマートか生の)ポインタを介して表現され、
+    委譲されなければいけません。
+    特にAPIでは、ポインタの意味論は値の意味論より複雑です。
+    所有権についてだけでなく、別名や生存期間、
+    ミュータビリティやその他の問題に囲まれて、
+    あなたは心配しなければいけません。</li>
+
+  <li>値の意味論の性能コストはしばしば過大評価されるので、
+    所有権の委譲による性能の恩恵は、
+    可読性と複雑さのコストを正当化しないかもしれません。</li>
+
+  <li>所有権を委譲するAPIはクライアントに単一メモリ管理モデルを強制します。</li>
+
+  <li>スマートポインタを使ったコードは、
+    リソース解放が行われる場所がより明白でなくなります。</li>
+
+  <li>C++11のムーブセマンティクスを使って所有権の委譲を表現する
+    <code>std::unique_ptr</code>は、比較的新しく、
+    何人かのプログラマを混乱させるかもしれません。</li>
+
+  <li>共有された所有権は、
+    注意深い所有権の設計に対して心をそそる第二の選択肢かもしれませんが、
+    システムの設計をわかりにくくします。</li>
+
+  <li>共有された所有権は実行時に明示的な保守を要求し、高価かもしれません。</li>
+
+  <li>(たとえば、循環参照のような、)いくつかのケースでは、
+    共有された所有権を伴うオブジェクトは削除されないかもしれません。</li>
+
+  <li>スマートポインタは生ポインタの完全な代用品ではありません。</li>
+</ul>
+</div>
 </div>
 
 <div class="decision">
+<div class="para">
 <p>If dynamic allocation is necessary, prefer to keep
 ownership with the code that allocated it. If other code
 needs access to the object, consider passing it a copy,
 or passing a pointer or reference without transferring
 ownership. Prefer to use <code>std::unique_ptr</code> to
 make ownership transfer explicit. For example:</p>
+<p class="ja">
+もし動的な割り当てが必要であれば、
+それを割り当てたコードが所有権を持つようにしてください。
+もしその他のコードがそのオブジェクトへのアクセスが必要な場合、
+コピーを渡すか、所有権を委譲せずにポインタか参照を渡すことを検討してください。
+所有権を明示的に委譲するためには、<code>std::unique_ptr</code>を使ってください。
+例えば、</p>
+</div>
 
 <pre>std::unique_ptr&lt;Foo&gt; FooFactory();
 void FooConsumer(std::unique_ptr&lt;Foo&gt; ptr);
 </pre>
 
 
-
+<div class="para">
 <p>Do not design your code to use shared ownership
 without a very good reason. One such reason is to avoid
 expensive copy operations, but you should only do this if
@@ -3306,11 +3407,26 @@ underlying object is immutable (i.e.
 <code>std::shared_ptr&lt;const Foo&gt;</code>).  If you
 do use shared ownership, prefer to use
 <code>std::shared_ptr</code>.</p>
+<p class="ja">
+とても良い理由がなく共有された所有権を使うようにあなたのコードを設計してはいけません。
+そのような理由の一つは、高価なコピー操作を回避することですが、
+性能の恩恵が重要で、かつ、後ろのオブジェクトが不変であるときだけ、そうするべきです。
+(たとえば、、<code>std::shared_ptr&lt;const Foo&gt;</code>です。)
+もし共有された所有権を使うのであれば、
+<code>std::shared_ptr</code>を使ってください。</p>
+</div>
 
+<div class="para">
 <p>Do not use <code>scoped_ptr</code> in new code unless
 you need to be compatible with older versions of C++.
 Never use <code>std::auto_ptr</code>. Instead, use
 <code>std::unique_ptr</code>.</p>
+<p class="ja">
+C++の古いバージョンと互換性がある必要がない限り、
+新しいコードの中で<code>scoped_ptr</code>を使ってはいけません。
+<code>std::auto_ptr</code>は決して使ってはいけません。
+代わりに、<code>std::unique_ptr</code>を使ってください。</p>
+</div>
 
 
 </div> 
@@ -3320,12 +3436,16 @@ Never use <code>std::auto_ptr</code>. Instead, use
 <h3 id="cpplint">cpplint</h3>
 
 <div class="summary">
+<div class="para">
 <p>Use <code>cpplint.py</code>
 to detect style errors.</p>
+<p class="ja">スタイルエラーを検出するために<code>cpplint.py</code>を使ってください。</p>
+</div>
 </div>
 
 <div class="stylebody">
 
+<div class="para">
 <p><code>cpplint.py</code>
 is a tool that reads a source file and identifies many
 style errors. It is not perfect, and has both false
@@ -3333,15 +3453,28 @@ positives and false negatives, but it is still a valuable
 tool. False positives can be ignored by putting <code>//
 NOLINT</code> at the end of the line or
 <code>// NOLINTNEXTLINE</code> in the previous line.</p>
+<p class="ja">
+<code>cpplint.py</code>はソースファイルを読み込んで多くのスタイルエラーを同定するツールです。
+完全ではなく、偽陽性と偽陰性の両方がありますが、それでも価値のあるツールです。
+偽陽性は、行の終わりに<code>// NOLINT</code>を置くか、
+前の行に<code>// NOLINTNEXTLINE</code>を置くことで、無視されます。</p>
+</div>
 
 
 
+<div class="para">
 <p>Some projects have instructions on
 how to run <code>cpplint.py</code> from their project
 tools. If the project you are contributing to does not,
 you can download
 <a href="http://google-styleguide.googlecode.com/svn/trunk/cpplint/cpplint.py">
 <code>cpplint.py</code></a> separately.</p>
+<p class="ja">いくつかのプロジェクトでは、
+プロジェクトのツールから<code>cpplint.py</code>を実行する方法の説明があります。
+もしあなたが貢献しているプロジェクトがやっていないのであれば、別に
+<a href="http://google-styleguide.googlecode.com/svn/trunk/cpplint/cpplint.py">
+<code>cpplint.py</code></a>をダウンロードできます。</p>
+</div>
 
 </div> 
 
